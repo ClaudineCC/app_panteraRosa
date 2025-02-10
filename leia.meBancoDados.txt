@@ -1,0 +1,44 @@
+
+// usado para instalar um pacote 'axios' em um projeto NodeJs ou em um 
+projeto front-end como (React, Vue, ReactNative, etc) que utiliza npm 
+(Node Package Manager) para gerenciar dependencias.
+// AXIOS- uma biblioteca Js popular para realizar requisiçoes HTTP, de forma 
+simples e eficiente. Ela é baseada em  promessas(Promises), o que torna ideal
+para trabalhar com chamadas assincronas.
+
+INSTALAR AXIOS NO APP (NA NA API)
+
+npm install axios
+
+// em caso de erro use o comando abaixo
+npm install axios --legacy-peer-deps
+
+
+////////////////////////////////
+
+VIA COMANDO CMD DO WINDOWS SE O TERMINAL DO VSCODE DER CONFLITO DE CONEXAO:
+
+copiar endereço 
+
+
+cls limpar
+ipconfig  para pegar o IP da maquina, no Senac da maq que uso 10.24.96.54
+
+voltar para app.tsx  e mudar o endereço localhost para endereço ip da maquina
+
+
+depois voltar para CMD e startar o node com comando
+node server.js
+
+start o npm start no vs code
+
+
+/// VERIFICAR URL EM FORMATO JSON
+ http://localhost:3000/agendas
+ 
+
+
+/// PARA ABRIR  2 TERMINAIS AO MESMO TEMPO NO DENTRO DO VSCODE 
+ cd..                -  abre novo TERMINAL
+ cd api_agenda       -  chama a pasta
+ node server.js      -  conecta ao banco atraves de api

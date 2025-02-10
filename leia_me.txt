@@ -1,0 +1,147 @@
+
+1 - criar uma pasta "universal" em qq lugar do seu PC para acomomodar todos os projetos para Mobile
+
+
+
+2- abrir o vscode, termimal e colar abaixo o comando para criar um novo  projeto
+
+npm install   =  comando cria e  instala a pasta node modules - onde todas dependencias serao instaladas:
+
+sessao dependencies - Pacotes essenciais para a execução do aplicativo em produção.
+
+sessao devDependencies - Pacotes necessários apenas para o desenvolvimento, testes e build do aplicativo.
+
+
+
+npx create-expo-app    nome-do-seu-projeto
+
+  OU 
+
+npm install -g react-native-cli
+npx react-native init MeuProjeto
+
+
+
+
+
+
+
+
+
+3- esse novo projeto "nome-do-seu-projeto' precisa estar apontado dentro da pasta "universal", 
+na barra lateral do vscode para dar continuidade as instalações das dependencias para o projeto pq senao as dependencias serao instaladas 'soltas/fora' do projeto se nao apomntar o caminho.
+
+
+******************************************************************************************************************************************
+
+BIBLIOTECA - CONJUNTO DE FUNÇÕES/METODOS , CLASSES E RECURSOS . Ex: manipulacao de datas, requisições HTTP, manipulacao de dados, etc.
+
+DEPENDENCIAS - PACOTES OU BIBLIOTECAS QUE UM PROJETO PRECISA PARA FUNCIONAR CORRETAMENTE. Estão listadas no arquivo 'package.json' do projeto.
+sao do tipo dependencies (= necessario para execucao do app)  e devDependencies (= necessario durante o desenvolvimento, testes, build)
+
+*******************************************************************************************************************************************
+
+instalar as dependencias:
+
+# instalar o typeScript
+npm install --save-dev typescript @types/react @types/react-native
+
+
+
+// DEPENDENCIAS PARA NAVEGAÇÕES EM GERAL:
+
+
+npm install @react-navigation/native   -   React Navigation, que fornece a funcianilidade de navegação em sua aplicação.Ela  permite que você crie pilhas de navegação , abas e muito mais
+
+npm install @react-navigation/stack   - essa biblioteca gerencia a navegação de pilha (como createStackNavigator) que gerencia a transicao/navegacao entre telas
+
+npm install @react-navigation/drawer   -  usado em menu - gavetas
+
+
+react-native-gesture-hander -    essa biblioteca permite MANIPULAR GESTOS de maneira mais eficiente em sua aplicacao. è essencial para que a navegação funcione corretamente, especialmente quando você usa gestos como desligar para voltar.
+
+react-native-reanimated -        essa bibiliote é usada para ANIMAÇÕES em React Native. O react natigation depende dela para realizar animações suaves entre as transições de tela.
+
+react-native-screens -           essa biblioteca OTIMIZA RENDERIZACAO DE TELAS em react native, permitindo que voce use a navegação de forma mais eficiente. Isso ajuda a reduzir o uso de memoria e melhorar o desempenho, especialmente em avaliações com muitas telas.
+
+react-native-safe-area-context - essa biblioteca de react native que ajuda a gerenciar as areas seguras da inteface do usuario em dispositivos moveis. essas areas seguras são os espacos que nao sao obstruidos por elementos como a abarra de status, a barra de navegação ou o entalhe (notch) em dispositivos mais novos.
+
+@react-native-community/masked-view   - essa biblioteca é usada para CRIAR EFEITOS DE MASCARA, que são uteis em animaçoes e transiçoes de tela. o react navigation e utiliza para garantir que os componentes sejam renderizados corretamente durante as transições.
+
+// instalar todas de uma vez:
+npm install @react-navigation/native @react-navigation/stack @react-navigation/drawer react-native-screens react-native-safe-area-context  react-native-gesture-handler
+
+
+
+// DEPENDENCIA PARA ICONES:
+
+npm install react-native-vector-icons
+npx react-native link react-native-vector-icons
+
+
+
+
+//DEPENDENCIA PARA FONTES PERSONALIZADAS:
+
+1-
+expo install expo-font
+ou
+npx expo install expo-font   // instalar se der problema
+
+//crie um arquivo na raiz com o nome react-native.config.js
+e colar:
+module.exports = {
+    assets: ['./assets/fonts'],
+};
+
+2-  se nao estiver usando o Expo:
+npm install react-native-fonts  
+guardar arquivos na pasta assets/fonts
+criar arquivo react-native.config.js  
+e colar:
+module.exports = {
+    assets: ['./assets/fonts'],
+};
+linkar as fontes para versoes anteriores ao react native 0.60  comando :   react-native link
+versoes acima link é automatico, basta no css dentro do stylo, fontfamily : nome da fonte importada
+
+
+
+
+
+
+****************************************
+package.json  troca de "main" : expo-router/entry para app.tsx e depois para "expo/AppEntry.js",
+
+  " __comment" : " valor inicial do main, direcionando para pasta App  - expo-router/entry", 
+
+
+
+
+// galeria de imagens CARROUSEL
+
+
+npm install --save react-native-snap-carousel
+
+expo install react-native-swiper
+
+expo install react-native-swiper
+
+
+
+//limpeza de cash - inicialização
+npx react-native start --reset-cache
+
+
+
+//GITHUB
+
+conectar ao GITHUB
+git config -- global claudine.ccosta@senacsp.edu.br
+git config -- global 'Claudine Costa'
+
+
+
+
+
+
