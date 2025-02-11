@@ -140,6 +140,12 @@ conectar ao GITHUB
 git config -- global claudine.ccosta@senacsp.edu.br
 git config -- global 'Claudine Costa'
 
+usar barra lateral extensao git
+1- mensagem - chore: o que fez,   git commit -m 'mensagem aqui'
+2-confirmacao                     git add
+3- envio ao repositorio           git push
+
+4- git pull       em casa! atualizar outros computadores
 
 
 

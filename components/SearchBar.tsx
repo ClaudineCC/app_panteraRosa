@@ -1,34 +1,38 @@
 import React, { useState, } from 'react';
-import { View, StyleSheet, TextInput, Alert, TouchableOpacity, } from "react-native";
+import { View, StyleSheet, TextInput, Alert, TouchableOpacity, ActivityIndicator, FlatList, } from "react-native";
 import axios from "axios";
-
-// import styles from '@/assets/style/styles';
-
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+//import de componente
+import Card from './Card';
 
 
 interface SearchBarProps {
     placeholder: string;
     onChange: (text: string) => void;
-    handSearch: (text: string) => void;
 }
 
 
-const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onChange, handSearch }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onChange}) => {
     // const [db_panteraRosa, setdb_panteraRosa] =useState([]);  // mesma nome do banco do arquivo server.js da pasta Api_panteraRosa
     const [titulo, setTitulo] = useState('');
+    const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(false);  // ou comeca com true
+    const [error, setError] = useState('');
 
 
     const procurarProduto = async () => {
+        setLoading(true);
+        setError('');
         try {
-            const response = await axios.get(`http://localhost:3000/db_panteraRosa/titulo/${titulo}`);  // ou concatenar
-            console.log('Response:', response.data);
-            onChange(response.data);
+            const response = await axios.get(`http://localhost:3000/db_panteraRosa/tbProduto/titulo/${titulo}`);  // OU tbProduto/titulo/${titulo}
+            setResults(response.data);
+            // console.log('Response:', response.data); 
         } catch (error) {
             console.error('Erro ao buscar o produto :', error);
             Alert.alert('Erro', 'Produto não encontrado com esse nome em nosso banco de dados. Tente outro.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -36,17 +40,47 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onChange, handSearch
         <>
 
             <View style={styles.areaContainer}>
+
                 <TextInput style={styles.input}
                     placeholder={placeholder}
                     value={titulo}
-                    onChangeText={text => setTitulo(text)}
-                />               
-                <TouchableOpacity onPress={handSearch} style={styles.botao} >
-                <Icon name='search' size={20} color='#000' style={styles.icone} />                   
+                    onChangeText={setTitulo}
+                    keyboardType="twitter"
+                />
+                <TouchableOpacity
+                    onPress={procurarProduto} style={styles.botao} >
+                    <Icon name='search' size={20} color='#000' style={styles.icone} />
                 </TouchableOpacity>
+
+                {/*loading nativo ou criar com,ponente loading e invocar nas screans */}
+                {loading && <ActivityIndicator size="large" color="#0000ff" />}
+
+                {error ? (
+                    <Text style={styles.errorText}>{error}</Text>
+                ) : (
+                    <FlatList
+                        data={results}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => (
+
+                            <Card
+                                image={item.image}
+                                titulo={item.titulo}
+                                descricao={item.descricao}
+                                precoAnterior={`R$ ${item.precoAnterior}`}
+                                precoAtual={`R$ ${item.precoAtual}`}
+
+                                comprar={() => Alert.alert('Compra', `Você comprou: ${item.titulo}`)}
+                            // comprar={ComprarProduto}
+                            // comprar={() => navigation.navigate('Sacola')}
+                            />
+                        )}
+                    />
+
+                )}
+
             </View>
         </>
-
     );
 };
 
@@ -73,7 +107,11 @@ const styles = StyleSheet.create({
     },
     icone: {
         marginRight: 10,
-
+    },
+    errorText: {
+        color: '#f00',
+        fontSize: 16,
+        marginTop: 20,
     },
 });
 

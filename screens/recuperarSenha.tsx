@@ -7,16 +7,16 @@ import axios from "axios";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-
+// recebe as entidades da tabela tbPessoa - banco: db_panteraRosa
 const RecuperarSenha: React.FC = ({navigation}) => {
-    const [db_panterarosa, setdb_panterarosa] =useState([]);  // mesma nome do banco do arquivo server.js da pasta Api_panteraRosa
+    const [db_panteraRosa, setdb_panteraRosa] =useState([]);  // mesma nome do banco do arquivo server.js da pasta Api_panteraRosa
     const [email, setEmail] = useState('');
       
 
     const paginaRecuperacao = async ()=>{
     try{
-       const response = await axios.get(`http://localhost:3000/panteraRosa/login/${email}`);  // ou concatenar
-        setdb_panterarosa (response.data);        // atualiza a lista com resultados encontrados
+       const response = await axios.get(`http://localhost:3000/db_panteraRosa/tbPessoa/${email}`);  // ou concatenar
+        setdb_panteraRosa (response.data);        // atualiza a lista com resultados encontrados
         Alert.alert('Email valido')
     }catch (error){
         console.error ('Erro , email invalido' , error);
@@ -27,12 +27,7 @@ const RecuperarSenha: React.FC = ({navigation}) => {
    // logica para enviar instruções para email alternativo
 
 
-
-
     return (
-
-
-
         <SafeAreaView>
             <StatusBar barStyle="light-content" backgroundColor="gray" />
             <ScrollView contentContainerStyle={styles.scrollContainer} >

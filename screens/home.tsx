@@ -19,11 +19,12 @@ const { width } = Dimensions.get('window');
 
 const Home = ({ navigation }) => {
 
-
     // no searchBar
     const [produto, setProduto] = useState([]);
-    const handleSearchChange = (data) => {
-        setProduto(data);
+
+    const handleSearchChange = (results) => {
+        setProduto(results);
+        console.log('resultados de busca: ', results);
 
 
         //alerta de produto inserido na sacola   
@@ -98,16 +99,7 @@ const Home = ({ navigation }) => {
                     <SearchBar
                         placeholder="Procure por um produto..."
                         onChange={handleSearchChange} // verificar como alterar no components!!!
-                    />
-                    <FlatList
-                        data={produto}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) => (
-                            <View style={styles.item}>
-                                <Text>{item.titulo}</Text>
-                            </View>
-                        )}
-                    />
+                    />                   
                 </View>
 
 
@@ -241,14 +233,15 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+
     },
     scrollContainer: {
         paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape
-    },
-    container: {
-        flex: 1,
-        padding: 20,
-    },
+    },   
     title: {
         fontSize: 24,
         fontWeight: 'bold',

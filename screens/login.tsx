@@ -12,7 +12,7 @@ interface fazerLoginProps{
     onChangeText: (text:string) =>void;
 }
 
-
+//  recebe as entidades da tabela tbPessoa- banco: db_panteraRosa
 const Login: React.FC = ({navigation}) => {
     // const [db_panteraRosa, setdb_panteraRosa] =useState([]);  // mesma nome do banco do arquivo server.js da pasta Api_panteraRosa
     const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ const Login: React.FC = ({navigation}) => {
 
 const fazerLogin = async ()=>{
     try{
-       const response = await axios.get(`http://localhost:3000/db_panteraRosa/login/${email}`);  // ou concatenar
+       const response = await axios.get(`http://localhost:3000/db_panteraRosa/tbPessoa/${email}`);  // OU  db_panteraRosa/login/email/${email}
        console.log('Response:', response.data);
        onChange(response.data);
        // setdb_panteraRosa (response.data);        // atualiza a lista com resultados encontrados
@@ -46,7 +46,7 @@ const fazerLogin = async ()=>{
 
 
                 {/* {/* <Image source={require('C:/APP/PANTERA_ROSA/app_panteraRosa/assets/images/logoCompleto.png')} style={styles.logoCompleto} /> */}
-                <Image source={require('../assets/images/logoCompleto.png')} style={styles.logoCompleto} />  */}
+                <Image source={require('../assets/images/logoCompleto.png')} style={styles.logoCompleto} />  
 
 
 

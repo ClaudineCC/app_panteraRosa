@@ -7,10 +7,11 @@ import StarRating from './StarRating';
 
 
 
-//criando uma interface
+//criando uma interface - recebe as entidades da tabela tbProduto- banco: db_panteraRosa
 interface CardProps {
     // navigation: NavigationProp<any>;   // vazio
-    image: any;  // any permite require
+    idProduto: string,  //mudar para inteiro
+    image: any;  // any permite require   ou tipo string?
     titulo: string;
     descricao: string;
     precoAnterior: string;

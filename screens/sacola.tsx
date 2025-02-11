@@ -13,12 +13,15 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Login from './login';
 
+
+//  recebe as entidades da tabela tbProduto- banco: db_panteraRosa
 interface Produto {
     idProduto: string;
-    nomeProduto: string;
+    image: any;  // any permite require
+    titulo: string;
     descricao: string;
-    qtdeProduto:number;  // ou float
-    precoProduto: number;
+    precoAtual: number;   
+    qtdeProduto:number;  // ou float NAO POSSUI ESTA ENTIDADE NA TABELA     
 }
 
 const Sacola: React.FC = ({navigation}) => {
@@ -30,26 +33,27 @@ const Sacola: React.FC = ({navigation}) => {
     // View Sacola
 
     const [db_panteraRosa, setdb_panteraRosa] =useState([]);  // mesma nome do banco do arquivo server.js da pasta Api_panteraRosa
-    const [tbproduto, settbproduto] = useState<Produto[]>([
+    const [tbProduto, settbProduto] = useState<Produto[]>([
         {
             idProduto: '1',
-            nomeProduto: 'produto 1',
-            descricao: 'descricao do produto',
+            image: Image,
+            titulo: 'produto 1',
+            descricao: 'descricao do produto',            
+            precoAtual: 10,
             qtdeProduto: 1,
-            precoProduto: 10,
         },
     ]);
 
 
 
     const aumentarProduto = (idProduto: string) => {
-        settbproduto(tbproduto.map(produto =>
+        settbProduto(tbProduto.map(produto =>
             produto.idProduto === idProduto ? { ...produto, qtdeProduto: produto.qtdeProduto + 1 } : produto
         ));
     };
 
     const removerProduto = (idProduto: string) => {
-        settbproduto(tbproduto.filter(produto => produto.idProduto !== idProduto));
+        settbProduto(tbProduto.filter(produto => produto.idProduto !== idProduto));
     };
 
     const checkoutProduto =() =>{
@@ -73,14 +77,14 @@ const Sacola: React.FC = ({navigation}) => {
                 <View style={styles.containerSacola}>
                     {/*flatlist para renderizar uma lista de produtos na sacola */}
                     <FlatList
-                        data={tbproduto}
+                        data={tbProduto}
                         keyExtractor={item => item.idProduto}
                         renderItem={({ item }) => (
 
                             <View style={styles.detalhesProduto}>
-                                <Text>{item.nomeProduto}</Text>
+                                <Text>{item.titulo}</Text>
                                 <Text>{item.descricao}</Text>
-                                <Text>{item.precoProduto}</Text>
+                                <Text>{item.precoAtual}</Text>
 
                                 <View style={styles.quantidadeProduto}>
                                     <Text>Quantidade: {item.idProduto}</Text>
