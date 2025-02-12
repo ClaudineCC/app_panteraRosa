@@ -74,6 +74,7 @@ const CorpoEBanho: React.FC = ({ navigation }) => {
 
 
             <Footer
+            
                 HomePress={() => navigation.navigate('Home')}
                 CategoriaPress={() => navigation.navigate('Categoria')}
                 AjudaPress={() => navigation.navigate('Ajuda')}
