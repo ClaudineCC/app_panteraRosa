@@ -110,18 +110,17 @@ const styles = StyleSheet.create({
     menu: {
         backgroundColor: 'pink',
         padding: 20,
+        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',        
+        shadowOffset: { width: 0, height: 2 }, //deslocamento da sombra
+        shadowOpacity: 0.2,  // opacidade da sombra
+        shadowRadius: 5, //desfoque da sombra
     },
     scrollContainer: {
         paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape            
     },
     menu1: {
         padding: 10,
-        borderRadius: 15,
-        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',
-        // boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.8)', 
-        // shadowOffset: { width: 0, height: 2 }, deslocamento da sombra
-        // shadowOpacity: 0.2,  // opacidade da sombra
-        // shadowRadius: 5, desfoque da sombra
+        borderRadius: 15,     
     },
     texto: {
         fontSize: 24,

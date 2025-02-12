@@ -13,51 +13,62 @@ import Footer from "@/components/Footer";
 const Trocas = ({ navigation }) => {
     return (
 
-        <SafeAreaView>
-            <StatusBar barStyle="light-content" backgroundColor="gray" />
-            <ScrollView contentContainerStyle={styles.scrollContainer} >
+        <SafeAreaView style={styles.safeArea}>
+        <StatusBar barStyle="light-content" backgroundColor="gray" />
+       <View style={styles.container}>
 
 
-
-            <Header
-                    HomePress={() => navigation.navigate('Home')}
-                    SacolaPress={() => navigation.navigate('Sacola')}
-                    LoginPress={() => navigation.navigate('Login')}
-                />
-
-
-                <Text>PÁGINA DE TROCAS, DEVOLUÇÕES E CANCELAMENTO DE COMPRAS</Text>
-
-
-
-
-                {/*fechar scrollView aqui pois o rodape sera fixo */}
-            </ScrollView>
-
-
-
-            <Footer
+       <Header
                 HomePress={() => navigation.navigate('Home')}
-                CategoriaPress={() => navigation.navigate('Categoria')}
-                AjudaPress={() => navigation.navigate('Ajuda')}
+                SacolaPress={() => navigation.navigate('Sacola')}
+                LoginPress={() => navigation.navigate('Login')}
             />
+       
+       
+        <ScrollView contentContainerStyle={styles.scrollContainer} >
 
+                <View style={styles.content}>
+                    <Text style={styles.text}>PÁGINA DE TROCAS, DEVOLUÇÕES E CANCELAMENTO</Text>
+                </View>      
+      
+            {/*fechar scrollView aqui pois o rodape sera fixo */}
+        </ScrollView>
 
+        <Footer
+            HomePress={() => navigation.navigate('Home')}
+            CategoriaPress={() => navigation.navigate('Categoria')}
+            AjudaPress={() => navigation.navigate('Ajuda')}
+        />
 
-        </SafeAreaView>
-
-
-    )
+        </View>
+    </SafeAreaView>
+)
 };
 
 
-
-
 const styles = StyleSheet.create({
-    scrollContainer: {
-        paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape            
-    },
+safeArea: {
+    flex: 1,
+    backgroundColor: '#fff',
+},
+container: {
+    flex: 1,
+    justifyContent: 'space-between',
+},
+scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: 20,
+    paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape        
+},
+content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+},
+text: {
+    fontSize: 24,    
+},
 });
-
 
 export default Trocas;

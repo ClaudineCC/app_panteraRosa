@@ -50,7 +50,7 @@ const Lancamento: React.FC = ({ navigation }) => {
                 </View>
 
 
-                <View>
+                <View style={styles.bannerfinal}>
                     <Image source={require('../assets/images/img01.png')} style={styles.image} />
                 </View>
 
@@ -98,7 +98,11 @@ const styles = StyleSheet.create({
         width: '50%',
         height: 50,
         borderRadius: 10,
-    }
+    },
+    bannerfinal: {
+        display: 'flex',
+        alignItems: 'center',
+    },
 });
 
 export default Lancamento;

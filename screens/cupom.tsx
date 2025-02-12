@@ -58,7 +58,7 @@ const Cupom: React.FC = ({navigation}) => {
                 />
 
 
-                <View style={styles.patrocinio}>
+                <View style={styles.bannerfinal}>
                     <Image source={require('../assets/images/img02.png')} style={styles.image} />
                 </View>
 
@@ -92,15 +92,16 @@ const styles = StyleSheet.create({
     scrollContainer: {
         paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape            
     },
-    patrocinio: {
-        backgroundColor: 'pink',
-    },
+   
     image: {
         flex: 1,
         width: '50%',
         height: 50,
         borderRadius: 10,
-
-    }
+    },
+    bannerfinal: {
+        display: 'flex',
+        alignItems: 'center',
+    },
 
 });

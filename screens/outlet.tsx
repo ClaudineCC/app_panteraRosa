@@ -28,7 +28,7 @@ const Outlet: React.FC = ({ navigation }) => {
                 />
 
 
-                <Text style={styles.texto}>OUTLET : Prodtutos para usar já ! </Text>
+                <Text style={styles.texto}>OUTLET : Produtos para usar já ! </Text>
 
 
                 <View style={styles.twoCards}>
@@ -51,7 +51,7 @@ const Outlet: React.FC = ({ navigation }) => {
                 </View>
 
 
-                <View>
+                <View style={styles.bannerfinal}>
                     <Image source={require('../assets/images/img02.png')} style={styles.image} />
                 </View>
 
@@ -98,7 +98,11 @@ const styles = StyleSheet.create({
         width: '50%',
         height: 50,
         borderRadius: 10,
-    }
+    },
+    bannerfinal: {
+        display: 'flex',
+        alignItems: 'center',
+    },
 });
 
 
