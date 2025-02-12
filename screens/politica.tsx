@@ -19,6 +19,7 @@ const Politica: React.FC = ({navigation}) => {
 
                 
             <Header
+                    HomePress={() => navigation.navigate('Home')}
                     SacolaPress={() => navigation.navigate('Sacola')}
                     LoginPress={() => navigation.navigate('Login')}
                 />

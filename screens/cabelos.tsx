@@ -9,13 +9,13 @@ import Card from '@/components/Card';
 import Footer from '@/components/Footer';
 
 
-const Cabelos: React.FC = ({navigation}) => {
+const Cabelos: React.FC = ({ navigation }) => {
 
-      // no searchBar
-        const [produto, setProduto] = useState([]);
-        const handleSearchChange = (data) => {
-            setProduto(data);
-        };
+    // no searchBar
+    const [produto, setProduto] = useState([]);
+    const handleSearchChange = (data) => {
+        setProduto(data);
+    };
 
 
     return (
@@ -26,9 +26,11 @@ const Cabelos: React.FC = ({navigation}) => {
 
 
                 <Header
+                    HomePress={() => navigation.navigate('Home')}
                     SacolaPress={() => navigation.navigate('Sacola')}
                     LoginPress={() => navigation.navigate('Login')}
                 />
+
                 <View style={styles.container}>
                     <SearchBar
                         placeholder="Procure por um produto..."
@@ -45,11 +47,11 @@ const Cabelos: React.FC = ({navigation}) => {
                     />
                 </View>
 
-                <Text> Você esta na categoria :  </Text>
+                <Text> Você esta na categoria : CABELOS </Text>
 
 
-
-                <Card
+                <View>
+                    <Card
                         image='./assets/images/CatCorpoEBanho.png'
                         titulo=" Sabonete"
                         descricao="descrição do produto"
@@ -57,9 +59,10 @@ const Cabelos: React.FC = ({navigation}) => {
                         precoAtual='R4 75,00'
                         comprar={() => navigation.navigate('Sacola')}
                     />
+                </View>
 
 
-                <View>
+                <View style={styles.bannerfinal}>
                     <Image source={require('../assets/images/img01.png')} style={styles.image} />
                 </View>
 
@@ -95,6 +98,10 @@ const styles = StyleSheet.create({
         width: '50%',
         height: 50,
         borderRadius: 10,
+    },
+    bannerfinal: {
+        display: 'flex',
+        alignItems:'center',
     },
 });
 

@@ -39,6 +39,7 @@ const fazerLogin = async ()=>{
 
 
             <Header
+                    HomePress={() => navigation.navigate('Home')}
                     SacolaPress={() => navigation.navigate('Sacola')}
                     LoginPress={() => navigation.navigate('Login')}
                 />

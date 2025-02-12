@@ -10,19 +10,24 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 interface HeaderProps {
+    HomePress?: () => void;
     SacolaPress?: () => void;
     LoginPress?: () => void;
 
 }
 
 
-const Header: React.FC<HeaderProps> = ({ LoginPress, SacolaPress }) => {
+const Header: React.FC<HeaderProps> = ({ HomePress, LoginPress, SacolaPress }) => {
     return (
 
         <View style={styles.header}>
 
-            <Image source={require('../assets/images/logoPantera.png')} style={styles.logoPantera} />
+            <TouchableOpacity onPress={HomePress} style={styles.botao} >
+            <Image source={require('../assets/images/logoPantera.png')} style={styles.logoPantera} />                
+            </TouchableOpacity>
 
+
+            
             <View style={styles.LoginSacola}>
 
                 <TouchableOpacity onPress={SacolaPress} style={styles.botao} >

@@ -9,7 +9,6 @@ import ButtonsHome from '@/components/ButtonsHome';
 import SearchBar from '@/components/SearchBar';
 import Carrosel from '@/components/Carrosel';
 import Card from '@/components/Card';
-// import StarRating from '@/components/StarRating';
 import Footer from '@/components/Footer';
 
 
@@ -25,16 +24,6 @@ const Home = ({ navigation }) => {
     const handleSearchChange = (results) => {
         setProduto(results);
         console.log('resultados de busca: ', results);
-
-
-        //alerta de produto inserido na sacola   
-        // Alert.alert(
-        //   "Produto Adicionado",
-        //   `${produto.titulo} foi adicionado à sacola`,
-        //   [
-        //     { text: "Produto Adicionado", onPress:()=> console.log("produto adicionado") }
-        //   ]
-        // );
     };
 
 
@@ -89,6 +78,7 @@ const Home = ({ navigation }) => {
 
 
                 <Header
+                    HomePress={() => navigation.navigate('Home')}
                     SacolaPress={() => navigation.navigate('Sacola')}
                     LoginPress={() => navigation.navigate('Login')}
                 />
@@ -106,31 +96,29 @@ const Home = ({ navigation }) => {
                 <Carrosel />
 
 
-
-
+                <View style={styles.buttonsHome}>
                 <ButtonsHome
                     text="Lançamento"
                     iconName="rocket"
                     onPress={() => navigation.navigate('Lancamento')}
                 />
-
                 <ButtonsHome
                     text="Cupom"
                     iconName="tag"
                     onPress={() => navigation.navigate('Cupom')}
                 />
-
                 <ButtonsHome
                     text="Outlet"
                     iconName="percent"
                     onPress={() => navigation.navigate('Outlet')}
                 />
+                </View>
 
 
 
 
 
-                {/* USAR BANCO DE DADOS PARA INSERIR OS DADOS ABAIXO */}
+                
 
 
 
@@ -138,14 +126,25 @@ const Home = ({ navigation }) => {
 
 
 
-                    <Card
-                        // image= {image}
-                        // titulo= {titulo}
-                        // descricao= {descricao}
-                        // precoAnterior= {`R$ ${precoAnterior}`}
-                        // precoAtual= {`R$ ${precoAtual}`}
-                        // comprar={ComprarProduto}
-                        // // comprar={() => navigation.navigate('Sacola')}
+              {/* ASSIM QUE HABILITAR O BANCO DE DADOS -  INSERIR OS 06 EXEMPLOS DADOS ABAIXO E EXCLUIR OS CARDS PREENCHIDOS */}
+
+                {/* <FlatList
+                        data={produto}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => (
+                            <Card
+                                image={item.image}
+                                titulo={item.titulo}
+                                descricao={item.descricao}
+                                precoAnterior={`R$ ${item.precoAnterior}`}
+                                precoAtual={`R$ ${item.precoAtual}`}
+                                comprar={() => Alert.alert('Compra', `Você comprou: ${item.titulo}`)}
+                            />
+                        )}
+                    /> */}
+
+
+                    <Card                      
                         image= {require('../assets/images/CatCorpoEBanho.png')}
                         titulo= "Sabonete liquido"
                         descricao= "Essencial para o seu dia-a-dia"
@@ -203,7 +202,7 @@ const Home = ({ navigation }) => {
 
 
 
-                <View>
+                <View style={styles.images}>
                     {/* <Image source={require('C:/APP/PANTERA_ROSA/app_panteraRosa/assets/images/home01.png')} style={styles.image}/> */}
                     <Image source={require('../assets/images/home01.png')} style={styles.image} />
                     {/* <Image source={require('C:/APP/PANTERA_ROSA/app_panteraRosa/assets/images/home02.png')} style={styles.image} /> */}
@@ -253,6 +252,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ccc',
     },
     sixCards: {
+        flexDirection:'column',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -265,8 +265,22 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'baseline',
         justifyContent: 'space-between',
+      },
+    buttonsHome :{
+        flexDirection: 'row',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '7px',     
+    },
+    images:{
+        flexDirection: 'row',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '2px', 
 
-    }
+    },
 });
 
 

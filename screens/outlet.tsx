@@ -21,7 +21,8 @@ const Outlet: React.FC = ({ navigation }) => {
             <ScrollView contentContainerStyle={styles.scrollContainer} >
 
 
-                <Header
+            <Header
+                    HomePress={() => navigation.navigate('Home')}
                     SacolaPress={() => navigation.navigate('Sacola')}
                     LoginPress={() => navigation.navigate('Login')}
                 />

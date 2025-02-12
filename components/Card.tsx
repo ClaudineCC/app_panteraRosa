@@ -1,6 +1,6 @@
-import { Text, View, Image, StatusBar, ScrollView, SafeAreaView, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { Text, View, Image, SafeAreaView, TouchableOpacity, StyleSheet, Alert } from "react-native";
 // import styles from '@/assets/style/styles';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NavigationProp } from "@react-navigation/native";
 
 import StarRating from './StarRating';
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems: 'center',
         textAlign: 'center',
-        width: '65',
+        // width: 65,
         height: 160,
         borderRadius: 10,
     },

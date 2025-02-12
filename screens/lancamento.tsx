@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 
 
 
-const Lancamento: React.FC = ({navigation}) => {
+const Lancamento: React.FC = ({ navigation }) => {
     return (
 
         <SafeAreaView style={styles.container}>
@@ -19,8 +19,9 @@ const Lancamento: React.FC = ({navigation}) => {
             <ScrollView contentContainerStyle={styles.scrollContainer} >
 
 
-               
-            <Header
+
+                <Header
+                    HomePress={() => navigation.navigate('Home')}
                     SacolaPress={() => navigation.navigate('Sacola')}
                     LoginPress={() => navigation.navigate('Login')}
                 />
@@ -33,7 +34,7 @@ const Lancamento: React.FC = ({navigation}) => {
 
                     <Card
                         image='./assets/images/produto01Lancamento.png'
-                        descricao="descrição do produto"                     
+                        descricao="descrição do produto"
                         precoAnterior='R$ 150,00'
                         precoAtual='R4 75,00'
                         comprar={() => alert('Produto Adicionado !')}
@@ -50,23 +51,23 @@ const Lancamento: React.FC = ({navigation}) => {
 
 
                 <View>
-                    <Image source={require('../assets/images/img01.png')} style={styles.image} />                 
+                    <Image source={require('../assets/images/img01.png')} style={styles.image} />
                 </View>
 
 
-                
+
                 {/*fechar scrollView aqui pois o rodape sera fixo */}
-                </ScrollView>
+            </ScrollView>
 
 
 
-                <Footer
+            <Footer
                 HomePress={() => navigation.navigate('Home')}
                 CategoriaPress={() => navigation.navigate('Categoria')}
                 AjudaPress={() => navigation.navigate('Ajuda')}
             />
 
-           
+
         </SafeAreaView>
 
     );
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape     
-    },     
+    },
     texto: {
         fontSize: 18,
         fontWeight: 'bold',

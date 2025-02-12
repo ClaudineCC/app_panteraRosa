@@ -5,18 +5,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 //import de componente
 import Card from './Card';
+import StarRating from './StarRating';
 
 
 interface SearchBarProps {
     placeholder: string;
-    onChange: (text: string) => void;
+    onChange: (results:any[]) => void;   //função de callback
 }
 
 
 const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onChange}) => {
     // const [db_panteraRosa, setdb_panteraRosa] =useState([]);  // mesma nome do banco do arquivo server.js da pasta Api_panteraRosa
-    const [titulo, setTitulo] = useState('');
-    const [results, setResults] = useState([]);
+    // const [results, setResults] = useState([]);
+    const [titulo, setTitulo] = useState('');    
     const [loading, setLoading] = useState(false);  // ou comeca com true
     const [error, setError] = useState('');
 
@@ -26,18 +27,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onChange}) => {
         setError('');
         try {
             const response = await axios.get(`http://localhost:3000/db_panteraRosa/tbProduto/titulo/${titulo}`);  // OU tbProduto/titulo/${titulo}
-            setResults(response.data);
+            onChange(response.data);   // passa os resultados para a funcao onChange
+            // setResults(response.data);
             // console.log('Response:', response.data); 
+            Alert.alert('Produtos encontrados!');
         } catch (error) {
             console.error('Erro ao buscar o produto :', error);
-            Alert.alert('Erro', 'Produto não encontrado com esse nome em nosso banco de dados. Tente outro.');
+            Alert.alert('Produto não encontrado com esse nome em nosso banco de dados. Tente outro.');
         } finally {
             setLoading(false);
         }
     };
 
-    return (
-        <>
+    return (        
 
             <View style={styles.areaContainer}>
 
@@ -57,30 +59,32 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onChange}) => {
 
                 {error ? (
                     <Text style={styles.errorText}>{error}</Text>
-                ) : (
-                    <FlatList
-                        data={results}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
+                ) : null}
 
-                            <Card
-                                image={item.image}
-                                titulo={item.titulo}
-                                descricao={item.descricao}
-                                precoAnterior={`R$ ${item.precoAnterior}`}
-                                precoAtual={`R$ ${item.precoAtual}`}
+                    {/* // <FlatList
+                    //     data={results}
+                    //     keyExtractor={(item) => item.id}
+                    //     renderItem={({ item }) => (
 
-                                comprar={() => Alert.alert('Compra', `Você comprou: ${item.titulo}`)}
-                            // comprar={ComprarProduto}
-                            // comprar={() => navigation.navigate('Sacola')}
-                            />
-                        )}
-                    />
+                    //         <Card
+                    //             image={item.image}
+                    //             titulo={item.titulo}
+                    //             descricao={item.descricao}
+                    //             precoAnterior={`R$ ${item.precoAnterior}`}
+                    //             precoAtual={`R$ ${item.precoAtual}`}
 
-                )}
+                    //             comprar={() => Alert.alert('Compra', `Você comprou: ${item.titulo}`)}
 
-            </View>
-        </>
+
+                    //         // comprar={ComprarProduto}
+                    //         // comprar={() => navigation.navigate('Sacola')}
+                    //         />
+                    //     )}
+                    // />
+
+                // } */}
+
+            </View>        
     );
 };
 
@@ -93,7 +97,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f0f0f0',
         borderRadius: 5,
         padding: 10,
-        margin: 10,
+        margin: 10,        
     },
     input: {
         flex: 1,
@@ -114,7 +118,5 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
 });
-
-
 
 export default SearchBar;
