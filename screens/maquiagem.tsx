@@ -62,7 +62,7 @@ const Maquiagem: React.FC = ({ navigation }) => {
                 </View>
 
 
-                <View astyle={styles.bannerfinal}>
+                <View style={styles.bannerfinal}>
                     <Image source={require('../assets/images/img01.png')} style={styles.image} />
                 </View>
 
@@ -72,14 +72,11 @@ const Maquiagem: React.FC = ({ navigation }) => {
             </ScrollView>
 
 
-
-
             <Footer
                 HomePress={() => navigation.navigate('Home')}
                 CategoriaPress={() => navigation.navigate('Categoria')}
                 AjudaPress={() => navigation.navigate('Ajuda')}
             />
-
 
         </SafeAreaView>
     );
@@ -96,7 +93,7 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         width: '50%',
-        height: 50,
+        height: 70,
         borderRadius: 10,
     },
     bannerfinal: {

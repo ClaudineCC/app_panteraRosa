@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         width: '50%',
-        height: 50,
+        height: 70,
         borderRadius: 10,
     },
     bannerfinal: {

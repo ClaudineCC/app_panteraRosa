@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Image, StatusBar, ScrollView, SafeAreaView, TouchableOpacity, FlatList} from "react-native";
+import { Text, View, StyleSheet, Image, StatusBar, ScrollView, SafeAreaView, TouchableOpacity, FlatList } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
-// Se você estiver usando o React Navigation 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
 
 //componentes:
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Login from './login';
 
 
 //  recebe as entidades da tabela tbProduto- banco: db_panteraRosa
@@ -20,25 +14,21 @@ interface Produto {
     image: any;  // any permite require
     titulo: string;
     descricao: string;
-    precoAtual: number;   
-    qtdeProduto:number;  // ou float NAO POSSUI ESTA ENTIDADE NA TABELA     
+    precoAtual: number;
+    qtdeProduto: number;  // ou float NAO POSSUI ESTA ENTIDADE NA TABELA     
 }
 
-const Sacola: React.FC = ({navigation}) => {
-
-    // navegação do botao fazer login
-    // const navigation = useNavigation();
-
+const Sacola: React.FC = ({ navigation }) => {
 
     // View Sacola
 
-    const [db_panteraRosa, setdb_panteraRosa] =useState([]);  // mesma nome do banco do arquivo server.js da pasta Api_panteraRosa
+    const [db_panteraRosa, setdb_panteraRosa] = useState([]);  // mesma nome do banco do arquivo server.js da pasta Api_panteraRosa
     const [tbProduto, settbProduto] = useState<Produto[]>([
         {
             idProduto: '1',
             image: Image,
             titulo: 'produto 1',
-            descricao: 'descricao do produto',            
+            descricao: 'descricao do produto',
             precoAtual: 10,
             qtdeProduto: 1,
         },
@@ -56,7 +46,7 @@ const Sacola: React.FC = ({navigation}) => {
         settbProduto(tbProduto.filter(produto => produto.idProduto !== idProduto));
     };
 
-    const checkoutProduto =() =>{
+    const checkoutProduto = () => {
         navigation.navigate('Checkout'); // navega para tela de checkout
     }
 
@@ -68,7 +58,7 @@ const Sacola: React.FC = ({navigation}) => {
             <ScrollView contentContainerStyle={styles.scrollContainer} >
 
 
-            <Header
+                <Header
                     HomePress={() => navigation.navigate('Home')}
                     SacolaPress={() => navigation.navigate('Sacola')}
                     LoginPress={() => navigation.navigate('Login')}
@@ -96,7 +86,7 @@ const Sacola: React.FC = ({navigation}) => {
                                 </View>
 
                                 <TouchableOpacity onPress={() => removerProduto(item.idProduto)} style={styles.remover}>
-                                    <Icon name="trash" size={24} color="black" />
+                                    <Icon style={styles.iconTrash} name="trash" size={24} color="black" />
                                 </TouchableOpacity>
                             </View>
                         )}
@@ -108,6 +98,11 @@ const Sacola: React.FC = ({navigation}) => {
                 <View>
                     {/* recebe componente 'opçoesEntrega' */}
                     <Text>Opçôes de entrega</Text>
+                </View>
+
+                <View>
+                    {/* recebe componente 'opçoesEntrega' */}
+                    <Text>CEP :00000-000</Text>
                 </View>
 
 
@@ -129,12 +124,12 @@ const Sacola: React.FC = ({navigation}) => {
 
                 {/*CSS estilizar !!!!! */}
                 <View>
-                    <View>
+                    <View style={styles.cupomDesconto}>
                         <Text>Cupom de Desconto</Text>
                         <Icon name="exclamation-circle" size={24} color='black' style={styles.icone} />
                     </View>
 
-                    <View>
+                    <View style={styles.codigoCupom}>
                         <Icon name="tag" size={35} color="black" />
                         <Text>Informe o código</Text>
                     </View>
@@ -164,7 +159,7 @@ const Sacola: React.FC = ({navigation}) => {
                     <Text>logica para : Exibir resumo </Text>
                 </View>
 
-           
+
                 <View>
                     <Text>logica para : valor total dos produtos</Text>
                     <Text>logica para : parcelamentos sem juros e até x vezes</Text>
@@ -175,21 +170,21 @@ const Sacola: React.FC = ({navigation}) => {
                 </View>
 
 
-                
+
                 {/*fechar scrollView aqui pois o rodape sera fixo */}
-                </ScrollView>
+            </ScrollView>
 
 
 
 
-                <Footer
+            <Footer
                 HomePress={() => navigation.navigate('Home')}
                 CategoriaPress={() => navigation.navigate('Categoria')}
                 AjudaPress={() => navigation.navigate('Ajuda')}
             />
 
 
-    
+
         </SafeAreaView>
 
     );
@@ -210,7 +205,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
-        backgroundColor: 'pink',
+        backgroundColor: 'white',
         borderRadius: 5,
     },
     detalhesProduto: {
@@ -248,8 +243,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     texto: {
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
         marginTop: 5,
-        fontSize: 14,
+        fontSize: 16,
         color: '#000',
     },
     formasPag: {
@@ -258,19 +256,41 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
     },
-    botao:{
-        flex:1,
+    botao: {
+        flex: 1,
         backgroundColor: 'pink',
         padding: 10,
+        borderRadius:15,
     },
-    fazerLogin:{
+    fazerLogin: {
         backgroundColor: "gray",
-        margin: '10px',
-        padding:'10px',
+        margin: 15,
+        padding: 15,
         display: 'flex',
-        alignItems:'center',
+        alignItems: 'center',
+        borderRadius: 15,
 
-    }
+    },
+    iconTrash: {
+        display: 'flex',
+    },
+    cupomDesconto: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 25,
+        margin: 25,
+    },
+    codigoCupom:{
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 25,
+        margin: 15,
+        padding: 10,
+        borderColor:'black',
+        borderRadius: 15,
+        backgroundColor: 'gray'
+
+    },
 
 });
 

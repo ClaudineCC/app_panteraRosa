@@ -37,8 +37,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'pink',
     },
     logoCompleto: {
-        width: 150,
-        height: 150,
+        width: 310,
+        height: 210,
+        borderRadius:15,
     },
 });
 

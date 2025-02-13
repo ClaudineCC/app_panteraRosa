@@ -38,15 +38,24 @@ const styles = StyleSheet.create({
         backgroundColor: 'pink',
         padding: 10,
         borderRadius: 20,
-        marginVertical: 5,
+        marginVertical: 12,
+        gap: 15,
+        borderColor:'black',
     },
     texto: {
-        color:'#fff',
+        alignItems:'center',
+        justifyContent:'center',
+        display:'flex',
+        color:'black',
         fontSize: 16,
     },
     icone: {
-        color:'#fff',
+        alignItems:'center',
+        justifyContent:'center',
+        display:'flex',
+        color:'black',
         marginRight: 5,
+      
     },
 });
 

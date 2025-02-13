@@ -63,17 +63,15 @@ const styles = StyleSheet.create({
         boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.8)',
     },
     image: {
-        display: 'flex',
-        justifyContent:'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        // width: 65,
+        width: '100%',  // Ajusta a largura da imagem para 100% do contêiner
         height: 160,
         borderRadius: 10,
+        marginBottom: 10,  
     },
     descricao: {
         fontSize: 16,
         marginVertical: 10,
+        textAlign:'center',
     },
     precoAnterior: {
         textDecorationLine: 'line-through',

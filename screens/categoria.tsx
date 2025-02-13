@@ -77,6 +77,10 @@ const Categoria: React.FC = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
 
+                    <View>
+                        <Text>------------------------------------------------------------------</Text>
+                    </View>
+
 
                     <View style={styles.item} >
                         <Icon name="circle" size={12} color="#000" style={styles.iconeCategorias} />

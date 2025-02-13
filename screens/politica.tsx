@@ -1,4 +1,3 @@
-import React, { useState, } from 'react';
 import { Text, View, Image, StatusBar, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -7,9 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 
-
-
-const Politica: React.FC = ({navigation}) => {
+const Politica: React.FC = ({ navigation }) => {
     return (
 
 
@@ -17,64 +14,72 @@ const Politica: React.FC = ({navigation}) => {
             <StatusBar barStyle="light-content" backgroundColor="gray" />
             <ScrollView contentContainerStyle={styles.scrollContainer} >
 
-                
-            <Header
+
+                <Header
                     HomePress={() => navigation.navigate('Home')}
                     SacolaPress={() => navigation.navigate('Sacola')}
                     LoginPress={() => navigation.navigate('Login')}
                 />
 
-
-
-
                 <Text style={styles.titulo}>Politica de Privacidade</Text>
 
-                <Text style={styles.titulo}>1. Introdução</Text>
-                <Text style={styles.texto}> Bem-vindo à nossa Política de Privacidade. Esta política descreve como nós coletamos,
-                    usamos e protegemos suas informações pessoais ao utilizar nosso site e serviços. </Text>
+                <View style={styles.bloco}>
+                    <Text style={styles.titulo}>1. Introdução</Text>
+                    <Text style={styles.texto}> Bem-vindo à nossa Política de Privacidade. Esta política descreve como nós coletamos,
+                        usamos e protegemos suas informações pessoais ao utilizar nosso site e serviços. </Text>
+                </View>
 
-                <Text style={styles.titulo}>2. Informações que Coletamos</Text>
-                <Text style={styles.texto}> Nós coletamos várias informações quando você visita nosso site, incluindo:
-                    - Informações de contato, como nome completo, e-mail , cpf, data de nascimento.
-                    - Informações de navegação, como endereço IP, tipo de navegador e páginas acessadas. </Text>
+                <View style={styles.bloco}>
+                    <Text style={styles.titulo}>2. Informações que Coletamos</Text>
+                    <Text style={styles.texto}> Nós coletamos várias informações quando você visita nosso site, incluindo:
+                        - Informações de contato, como nome completo, e-mail , cpf, data de nascimento.
+                        - Informações de navegação, como endereço IP, tipo de navegador e páginas acessadas. </Text>
+                </View>
 
-                <Text style={styles.titulo}>3. Como Usamos Suas Informações</Text>
-                <Text style={styles.texto}> Usamos suas informações para diversos propósitos, incluindo:
-                    - Fornecimento de serviços e suporte ao cliente.
-                    - Envio de atualizações e promoções.
-                    - Melhorar a experiência do usuário em nosso site. </Text>
+                <View style={styles.bloco}>
+                    <Text style={styles.titulo}>3. Como Usamos Suas Informações</Text>
+                    <Text style={styles.texto}> Usamos suas informações para diversos propósitos, incluindo:
+                        - Fornecimento de serviços e suporte ao cliente.
+                        - Envio de atualizações e promoções.
+                        - Melhorar a experiência do usuário em nosso site. </Text>
+                </View>
 
-                <Text style={styles.titulo}>4. Compartilhamento de Informações</Text>
-                <Text style={styles.texto}> Nós não compartilhamos suas informações pessoais com terceiros,
-                    exceto conforme necessário para fornecer nossos serviços ou conforme exigido por lei. </Text>
+                <View style={styles.bloco}>
+                    <Text style={styles.titulo}>4. Compartilhamento de Informações</Text>
+                    <Text style={styles.texto}> Nós não compartilhamos suas informações pessoais com terceiros,
+                        exceto conforme necessário para fornecer nossos serviços ou conforme exigido por lei. </Text>
+                </View>
 
-                <Text style={styles.titulo}>5. Segurança das Informações</Text>
-                <Text style={styles.texto}> Implementamos medidas de segurança para proteger suas informações pessoais
-                    contra acesso não autorizado e divulgação. </Text>
+                <View style={styles.bloco}>
+                    <Text style={styles.titulo}>5. Segurança das Informações</Text>
+                    <Text style={styles.texto}> Implementamos medidas de segurança para proteger suas informações pessoais
+                        contra acesso não autorizado e divulgação. </Text>
+                </View>
 
-                <Text style={styles.titulo}>6. Alterações a Esta Política</Text>
-                <Text style={styles.texto}> Podemos atualizar esta Política de Privacidade periodicamente.
-                    Recomendamos que você revise esta política regularmente para se manter informado sobre nossas práticas. </Text>
+                <View style={styles.bloco}>
+                    <Text style={styles.titulo}>6. Alterações a Esta Política</Text>
+                    <Text style={styles.texto}> Podemos atualizar esta Política de Privacidade periodicamente.
+                        Recomendamos que você revise esta política regularmente para se manter informado sobre nossas práticas. </Text>
+                </View>
 
-
-                <Text style={styles.titulo}>7. Contato</Text>
-                <Text style={styles.texto}> Se você tiver dúvidas ou preocupações sobre nossa Política de Privacidade,
-                    entre em contato conosco através do e-mail: contato@panteraRosa.com. </Text>
+                <View style={styles.bloco}>
+                    <Text style={styles.titulo}>7. Contato</Text>
+                    <Text style={styles.texto}> Se você tiver dúvidas ou preocupações sobre nossa Política de Privacidade,
+                        entre em contato conosco através do e-mail: contato@panteraRosa.com. </Text>
+                </View>
 
 
 
                 {/*fechar scrollView aqui pois o rodape sera fixo */}
-                </ScrollView>
+            </ScrollView>
 
-                <Footer
+            <Footer
                 HomePress={() => navigation.navigate('Home')}
                 CategoriaPress={() => navigation.navigate('Categoria')}
                 AjudaPress={() => navigation.navigate('Ajuda')}
             />
 
-
-        
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }
 
@@ -99,6 +104,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 20,
         color: '#333',
+    },
+    bloco: {
+        padding: 20,
+        borderRadius: 5,
+        // backgroundColor: '',
+    
     },
 
 });

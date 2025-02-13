@@ -117,11 +117,6 @@ const Home = ({ navigation }) => {
 
 
 
-
-                
-
-
-
                 <View style={styles.sixCards}>
 
 
@@ -202,7 +197,7 @@ const Home = ({ navigation }) => {
 
 
 
-                <View style={styles.images}>
+                <View style={styles.imageHome}>
                     {/* <Image source={require('C:/APP/PANTERA_ROSA/app_panteraRosa/assets/images/home01.png')} style={styles.image}/> */}
                     <Image source={require('../assets/images/home01.png')} style={styles.image} />
                     {/* <Image source={require('C:/APP/PANTERA_ROSA/app_panteraRosa/assets/images/home02.png')} style={styles.image} /> */}
@@ -257,14 +252,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    image: {
+    imageHome: {
         flex: 1,
-        width: '45%',
-        height: 45,
+        padding: 20,
         borderRadius: 10,
         display: 'flex',
-        alignItems: 'baseline',
-        justifyContent: 'space-between',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        gap: 10,
       },
     buttonsHome :{
         flexDirection: 'row',

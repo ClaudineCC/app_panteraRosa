@@ -23,11 +23,11 @@ const Header: React.FC<HeaderProps> = ({ HomePress, LoginPress, SacolaPress }) =
         <View style={styles.header}>
 
             <TouchableOpacity onPress={HomePress} style={styles.botao} >
-            <Image source={require('../assets/images/logoPantera.png')} style={styles.logoPantera} />                
+                <Image source={require('../assets/images/logoPantera.png')} style={styles.logoPantera} />
             </TouchableOpacity>
 
 
-            
+
             <View style={styles.LoginSacola}>
 
                 <TouchableOpacity onPress={SacolaPress} style={styles.botao} >
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         padding: 10,
         backgroundColor: 'pink',
     },
@@ -64,26 +64,32 @@ const styles = StyleSheet.create({
     },
     LoginSacola: {
         flexDirection: 'row',
+        marginRight: 5,
     },
     botao: {
-        flexDirection: 'row',
+        // flexDirection: 'row',
+        justifyContent: 'center',
         alignItems: 'center',
         marginHorizontal: 10,
     },
     texto: {
-        fontFamily: 'Montserrat', // fonte importada
-        color: '#fff',
+        // fontFamily: 'Montserrat', // fonte importada
+        color: 'black',
         marginRight: 5,
+        marginTop: 5,
+        fontSize: 14,
     },
     icone: {
-        color: '#fff',
         marginRight: 5,
+        color: 'black',
     },
 
 });
 
 
 export default Header;
+
+
 
 
 

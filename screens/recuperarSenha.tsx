@@ -8,79 +8,82 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 // recebe as entidades da tabela tbPessoa - banco: db_panteraRosa
-const RecuperarSenha: React.FC = ({navigation}) => {
-    const [db_panteraRosa, setdb_panteraRosa] =useState([]);  // mesma nome do banco do arquivo server.js da pasta Api_panteraRosa
+const RecuperarSenha: React.FC = ({ navigation }) => {
     const [email, setEmail] = useState('');
-      
 
-    const paginaRecuperacao = async ()=>{
-    try{
-       const response = await axios.get(`http://localhost:3000/db_panteraRosa/tbPessoa/${email}`);  // ou concatenar
-        setdb_panteraRosa (response.data);        // atualiza a lista com resultados encontrados
-        Alert.alert('Email valido')
-    }catch (error){
-        console.error ('Erro , email invalido' , error);
-        Alert.alert('Erro, email invalido');
-    }
-};
 
-   // logica para enviar instruções para email alternativo
+    const paginaRecuperacao = async () => {
+        if (!email) {
+            Alert.alert('Erro', 'Digite um email válido.');
+            return;
+        }
+
+        // logica para enviar instruções para email alternativo
+        try {
+            const response = await axios.get(`http://localhost:3000/db_panteraRosa/tbPessoa/${email}`);  // ou concatenar
+            if (response.data.length === 0) {
+                Alert.alert('Erro', 'Email inválido.');
+                return;
+            }
+            // Enviar email de recuperação
+            await axios.post('http://localhost:3000/send-recovery-email', { email });
+            Alert.alert('Sucesso', 'Instruções de recuperação de senha enviadas para o email informado.');
+        } catch (error) {
+            console.error('Erro ao enviar email de recuperação', error);
+            Alert.alert('Erro', 'Erro ao enviar email de recuperação.');
+        }
+    };
+
 
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" backgroundColor="gray" />
             <ScrollView contentContainerStyle={styles.scrollContainer} >
 
 
-            <Header
+                <Header
                     HomePress={() => navigation.navigate('Home')}
                     SacolaPress={() => navigation.navigate('Sacola')}
                     LoginPress={() => navigation.navigate('Login')}
                 />
 
-
                 <Image source={require('../assets/images/logoCompleto.png')} style={styles.logoCompleto} />
-
-                
 
                 <View style={styles.containerLogin}>
                     <Text style={styles.texto}>RECUPERAR SENHA</Text>
 
-                    <TextInput style={styles.label} placeholder="Digite aqui um email alternativo para
-                    recuperação de senha:"
-                    value={email}
-                    onChangeText={setEmail}
+                    <TextInput style={styles.label} placeholder="Digite aqui um email alternativo"
+                        value={email}
+                        onChangeText={setEmail}
                     />
-                
+
                     <TouchableOpacity style={styles.senha} onPress={paginaRecuperacao}>
-                    <Text style={styles.texto}>Enviar</Text>                
+                        <Text style={styles.texto}>Enviar</Text>
                     </TouchableOpacity>
                 </View>
 
-                
                 {/*fechar scrollView aqui pois o rodape sera fixo */}
-                </ScrollView>
+            </ScrollView>
 
-
-                <Footer
+            <Footer
                 HomePress={() => navigation.navigate('Home')}
                 CategoriaPress={() => navigation.navigate('Categoria')}
                 AjudaPress={() => navigation.navigate('Ajuda')}
             />
-    
         </SafeAreaView>
     );
-}
-
-
+};
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     logoCompleto: {
         display: 'flex',
         alignItems: 'center',
-        width: 80,
-        height: 120,
+        justifyContent: 'center',
+        marginLeft: 95,
     },
     scrollContainer: {
         paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape            
@@ -96,35 +99,36 @@ const styles = StyleSheet.create({
     texto: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 20,
-        display:'flex',
+        display: 'flex',
     },
     label: {
         fontSize: 16,
         // alignSelf: 'flex-start',        
         width: '100%',
-        padding: 10,
+        padding: 20,
+        margin: 20,
         marginBottom: 20,
-        borderRadius: 20,
+        borderRadius: 15,
         borderColor: 'black',
         backgroundColor: 'gray',
     },
-    senha:{
-        backgroundColor: 'gray',
-        textAlign:'center',
+    senha: {
+        backgroundColor: 'white',
+        textAlign: 'center',
         fontSize: 16,
-        marginTop: 10,
-        marginEnd: 10,
+        marginTop: 15,
+        marginEnd: 15,
+        margin: 15,
+        padding: 15,
+        borderRadius: 15,
     },
     botao: {
         backgroundColor: 'gray',
-        textAlign:'center',
+        textAlign: 'center',
         fontSize: 16,
-    
-        paddingVertical: 10,
-        borderRadius: 20,
-        marginTop: 10,
-        marginEnd: 10,
+        padding: 20,
+        borderRadius: 15,
+        margin: 15,
     },
 });
 

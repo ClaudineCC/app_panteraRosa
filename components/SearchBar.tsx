@@ -102,6 +102,11 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         fontSize: 16,
+        borderColor: "gray",
+        padding: 10,   
+        borderWidth: 1,   
+    //    width: 320,
+        
 
     },
     botao: {

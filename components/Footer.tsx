@@ -62,26 +62,19 @@ const styles = StyleSheet.create({
         bottom: 0,  // 
         left: 0,  //
         right: 0, //
-
     },
     botao:{
         justifyContent: 'center',
         alignItems: 'center',
     },
     icone:{
-        color: '#fff',
+        color: 'black',
     },
     texto:{
-        color: '#fff', 
+        color: 'black', 
         marginTop: 5,
-        // fontSize: 14,
-        // color: '#fff',
-        // marginHorizontal: 15,
-        // textDecorationLine: 'underline',
+         fontSize: 14,      
     },
-
-
-
 });
 
 export default Footer;
