@@ -21,6 +21,13 @@ npm install -g react-native-cli
 npx react-native init MeuProjeto
 
 
+teste
+
+tsetse
+teste
+
+
+
 
 
 
