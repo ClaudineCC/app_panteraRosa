@@ -30,7 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onChange}) => {
             onChange(response.data);   // passa os resultados para a funcao onChange
             // setResults(response.data);
             // console.log('Response:', response.data); 
-            Alert.alert('Produtos encontrados!');
+            Alert.alert('Produtos encontrados!'); 
         } catch (error) {
             console.error('Erro ao buscar o produto :', error);
             Alert.alert('Produto não encontrado com esse nome em nosso banco de dados. Tente outro.');

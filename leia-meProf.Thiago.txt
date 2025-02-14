@@ -1,0 +1,32 @@
+
+git config --global user.email   claudinec.costa@senacsp.edu.br
+git config --global user.name   "Claudine CC"
+em source controls dar primeiro commit e demais necessarios
+
+
+npx create-expo-app MeuProjeto
+
+limpar o projeto =  tirar as pastas padroes que vem no projeto quando baixado novo
+npm run reset-project
+
+
+npm start ou npx expo start - ambos iniciam/startam  o projeto
+
+
+
+<props>  passam estilos, mais acessivel . ex <link href="">
+
+
+EXTENSÕES: A Prettier Code-formater - tras regras de formatação
+
+
+dependencias para imagem:
+ npx expo install expo-image
+
+//dependencia  para consulta imagens no seu celular
+ npx expo install expo-image-picker
+
+
+
+
+
