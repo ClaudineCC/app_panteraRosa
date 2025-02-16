@@ -26,10 +26,7 @@ const Header: React.FC<HeaderProps> = ({ HomePress, LoginPress, SacolaPress }) =
                 <Image source={require('../assets/images/logoPantera.png')} style={styles.logoPantera} />
             </TouchableOpacity>
 
-
-
             <View style={styles.LoginSacola}>
-
                 <TouchableOpacity onPress={SacolaPress} style={styles.botao} >
                     <Icon name='shopping-cart' size={24} style={styles.icone} />
                     <Text style={styles.texto}>Sacola</Text>
@@ -39,11 +36,9 @@ const Header: React.FC<HeaderProps> = ({ HomePress, LoginPress, SacolaPress }) =
                     <Icon name='user' size={24} style={styles.icone} />
                     <Text style={styles.texto}>Login</Text>
                 </TouchableOpacity >
-
             </View >
 
         </View >
-
     );
 };
 

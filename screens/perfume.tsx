@@ -1,5 +1,6 @@
-import React, { useState, } from 'react';
-import { FlatList, Text, View, Image, StatusBar, ScrollView, SafeAreaView, StyleSheet, } from "react-native";
+import React, { useState, useEffect, } from 'react';
+import { FlatList, Text, View, Image, StatusBar, ScrollView, SafeAreaView, StyleSheet, Alert } from "react-native";
+import axios from 'axios';
 
 
 //componentes:
@@ -17,6 +18,20 @@ const Perfume: React.FC = ({ navigation }) => {
         setProduto(data);
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/tbProduto/categoria/3');
+                setProduto(response.data);
+                console.log("Dados da categoria Perfume: ", response.data);
+            } catch (error) {
+                console.error("Erro ao buscar produtos da categoria Perfume:", error);
+                Alert.alert("Erro", "Não foi possível buscar os produtos da categoria Perfume.");
+            }
+        };
+        fetchData();
+    }, []);
+
 
     return (
 
@@ -32,45 +47,40 @@ const Perfume: React.FC = ({ navigation }) => {
                 />
 
                 <View style={styles.container}>
+
                     <SearchBar
                         placeholder="Procure por um produto..."
                         onChange={handleSearchChange} // verificar como alterar no components!!!
                     />
+
+                    <Text> Você esta na categoria : PERFUME </Text>
+
                     <FlatList
                         data={produto}
-                        keyExtractor={(item) => item.id.toString()}
+                        keyExtractor={(item) => item.idProduto.toString()}
                         renderItem={({ item }) => (
-                            <View style={styles.item}>
-                                <Text>{item.titulo}</Text>
+                            <View style={styles.cardsBanco}>
+                                <Card
+                                    image={{ uri: item.image }}
+                                    titulo={item.titulo}
+                                    descricao={item.descricao}
+                                    precoAnterior={`R$ ${item.precoAnterior}`}
+                                    precoAtual={`R$ ${item.precoAtual}`}
+                                    comprar={() => Alert.alert("Compra", `Você comprou: ${item.titulo}`)}
+                                />
                             </View>
                         )}
                     />
-                </View>
-
-                <Text> Você esta na categoria : PERFUME </Text>
-
-                <View>
-                    <Card
-                        image='./assets/images/CatCorpoEBanho.png'
-                        titulo=" Sabonete"
-                        descricao="descrição do produto"
-                        precoAnterior='R$ 150,00'
-                        precoAtual='R4 75,00'
-                        comprar={() => navigation.navigate('Sacola')}
-                    />
-                </View>
 
 
-                <View style={styles.bannerfinal}>
-                    <Image source={require('../assets/images/img01.png')} style={styles.image} />
-                </View>
+                    <View style={styles.bannerfinal}>
+                        <Image source={require('../assets/images/img01.png')} style={styles.image} />
+                    </View>
 
+                    </View>
 
-
-                {/*fechar scrollView aqui pois o rodape sera fixo */}
+                    {/*fechar scrollView aqui pois o rodape sera fixo */}
             </ScrollView>
-
-
 
 
             <Footer
@@ -78,7 +88,6 @@ const Perfume: React.FC = ({ navigation }) => {
                 CategoriaPress={() => navigation.navigate('Categoria')}
                 AjudaPress={() => navigation.navigate('Ajuda')}
             />
-
 
         </SafeAreaView>
     );
@@ -88,6 +97,9 @@ const Perfume: React.FC = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 20,
+        backgroundColor: '#fff',
+
     },
     scrollContainer: {
         paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape            
@@ -102,7 +114,12 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
     },
+    cardsBanco: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 10,
+    },
 });
-
 
 export default Perfume;

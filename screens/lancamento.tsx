@@ -1,17 +1,38 @@
-import React from 'react';
-import { Text, TouchableOpacity, View, SafeAreaView, ScrollView, StatusBar, Image, StyleSheet, } from "react-native";
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'; 3
+import {useState, useEffect, } from 'react';
+import { FlatList, Text, TouchableOpacity, View, SafeAreaView, ScrollView, StatusBar, Image, StyleSheet, Alert,} from "react-native";
+import axios from 'axios';
 
 import Header from "../components/Header";
-import Card from '@/components/Card';
 import Footer from "@/components/Footer";
+import Card from '@/components/Card';
 // import StarRating from "@/components/StarRating";
 
 
 
 const Lancamento: React.FC = ({ navigation }) => {
+    const [produto, setProduto] = useState([]);
+
+
+    //INSERIR CARDS(dados salvos na tbProduto) NO HOME
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:3000/tbProduto');
+          setProduto(response.data);
+          console.log("Dados do banco: ", response.data);
+        } catch (error) {
+          console.error("Erro ao buscar produtos:", error);
+          Alert.alert("Erro", "Não foi possível buscar os produtos.");
+        }
+      };
+  
+      fetchData();
+    }, []);
+  
+
+
+
+
     return (
 
         <SafeAreaView style={styles.container}>
@@ -29,25 +50,47 @@ const Lancamento: React.FC = ({ navigation }) => {
 
                 <Text style={styles.texto}>LANÇAMENTOS : Se sinta bem </Text>
 
+                <View style={styles.cardBanco}>
+                <FlatList
+          data={produto}
+          keyExtractor={(item) => item.idProduto.toString()}
+          pagingEnabled
+          renderItem={({ item }) => (
+            <View style={styles.cardsBanco}>
+              <Card
+                image={{ uri: item.image }}
+                titulo={item.titulo}
+                descricao={item.descricao}
+                precoAnterior={`R$ ${item.precoAnterior}`}
+                precoAtual={`R$ ${item.precoAtual}`}
+                comprar={() => ComprarProduto()}
+              />
+            </View>
+          )}
+        />
 
-                <View style={styles.twoCards}>
 
-                    <Card
-                        image='./assets/images/produto01Lancamento.png'
-                        descricao="descrição do produto"
-                        precoAnterior='R$ 150,00'
-                        precoAtual='R4 75,00'
-                        comprar={() => alert('Produto Adicionado !')}
-                    />
 
-                    <Card
-                        image='./assets/images/produto01Lancamento.png'
-                        descricao="descrição do produto"
-                        precoAnterior='R$ 150,00'
-                        precoAtual='R4 75,00'
-                        comprar={() => alert('Produto Adicionado !')}
-                    />
+
                 </View>
+                {/* <View style={styles.twoCards}>
+
+                    <Card
+                        image='./assets/images/produto01Lancamento.png'
+                        descricao="descrição do produto"
+                        precoAnterior='R$ 150,00'
+                        precoAtual='R4 75,00'
+                        comprar={() => alert('Produto Adicionado !')}
+                    />
+
+                    <Card
+                        image='./assets/images/produto01Lancamento.png'
+                        descricao="descrição do produto"
+                        precoAnterior='R$ 150,00'
+                        precoAtual='R4 75,00'
+                        comprar={() => alert('Produto Adicionado !')}
+                    />
+                </View> */}
 
 
                 <View style={styles.bannerfinal}>
@@ -88,7 +131,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         color: '#333',
     },
-    twoCards: {
+    cardBanco: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
