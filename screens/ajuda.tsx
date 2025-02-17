@@ -46,9 +46,10 @@ const Ajuda: React.FC = ({navigation}) => {
 
 
 
-                <View>
+                <View style={styles.containerCadastro}>
                     <Text>AJUDA </Text>
                 </View>
+              
 
 
 
@@ -159,12 +160,12 @@ const styles = StyleSheet.create({
         paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape            
     },
     cardsDeAjuda: {
-        padding:10,
-        margin:15,
-        gap:5,
+        // padding:10,
+        // margin:15,
+        gap:15,
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems:'center',
+        justifyContent:'space-between',
     },
     canaisGeral: {
         padding: 15,
@@ -184,6 +185,7 @@ const styles = StyleSheet.create({
     icone: {
         color: '#fff',
         marginRight: 10,
+        
     },
     atendVirtual: {
         fontSize: 16,
@@ -195,6 +197,14 @@ const styles = StyleSheet.create({
         color: '#fff',
         marginTop: 5,
     },
+    containerCadastro: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        // backgroundColor: 'pink',
+        borderRadius: 10,
+    },  
 });
 
 

@@ -1,35 +1,27 @@
 import React, { useState, } from 'react';
 import { View, StyleSheet, TextInput, Alert, TouchableOpacity, ActivityIndicator, FlatList, } from "react-native";
-import axios from "axios";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 interface SearchBarProps {
     placeholder: string;
-    onChange: (results: any[]) => void;   //função de callback
+    onChange: (titulo:string) => void;   //função de callback
 }
 
 
 const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onChange }) => {
-    const [titulo, setTitulo] = useState('');
+    const [titulo, setTitulo] = useState('');   // recebem em value  onChangeText
     const [loading, setLoading] = useState(false);  // ou comeca com true
-    const [error, setError] = useState('');
 
-    const procurarProduto = async () => {
+
+    const handleSearch = () => {
         setLoading(true);
-        setError('');
-        try {
-            const response = await axios.get(`http://localhost:3000/tbProduto/titulo/${titulo}`);
-            onChange(response.data);
-            Alert.alert('Produtos encontrados!');
-        } catch (error) {
-            console.error('Erro ao buscar o produto :', error);
-            Alert.alert('Produto não encontrado com esse nome em nosso banco de dados. Tente outro.');
-        } finally {
-            setLoading(false);
-        }
+        onChange(titulo);  // Chama a função que foi passada como prop (responsável pela chamada à API)
+        setLoading(false);
     };
- 
+
+
+
 
     return (
 
@@ -39,19 +31,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onChange }) => {
                 placeholder={placeholder}
                 value={titulo}
                 onChangeText={setTitulo}
-                keyboardType="twitter"
+                keyboardType="twitter" //default
             />
             <TouchableOpacity
-                onPress={procurarProduto} style={styles.botao} >
+                onPress={handleSearch} style={styles.botao} >
                 <Icon name='search' size={20} color='#000' style={styles.icone} />
             </TouchableOpacity>
 
             {/*loading nativo ou criar com,ponente loading e invocar nas screans */}
             {loading && <ActivityIndicator size="large" color="#0000ff" />}
 
-            {error ? (
+            {/* {error ? (
                 <Text style={styles.errorText}>{error}</Text>
-            ) : null}
+            ) : null}  */}
 
         </View>
     );

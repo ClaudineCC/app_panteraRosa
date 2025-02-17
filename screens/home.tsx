@@ -1,4 +1,4 @@
-import {  SafeAreaView,  View,  Text,  StyleSheet,  StatusBar,  ScrollView,  FlatList,  Dimensions,  Alert,  Image,} from "react-native";
+import { SafeAreaView, View, Text, StyleSheet, StatusBar, ScrollView, FlatList, Dimensions, Alert, Image, } from "react-native";
 import React, { useState, useEffect, } from "react";
 import axios from "axios";
 
@@ -12,60 +12,90 @@ import Footer from "@/components/Footer";
 
 
 
+
 const { width } = Dimensions.get("window");
 
 
 const Home = ({ navigation }) => {
-  // no searchBar produto: armazena os resultados de busca de produtos
-  const [produto, setProduto] = useState([]);  // para inserir card
-  const [titulo,setTitulo] =useState('');
- 
+  const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);     // para resultados da pesquisa 
+  const [produtos, setProdutos] = useState([]);     // todos os produtos filtrados
+  const [error, setError] = useState<string | null>(null);  // para exibir erros
 
 
-  //INSERIR CARDS(dados salvos na tbProduto) NO HOME
+
+
+  // CARREGAR TODOS OS PRODUTOS INICIALMENTE DO BANCO DE DADOS 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:3000/tbProduto');
-        setProduto(response.data);
-        console.log("Dados do banco: ", response.data);
+        setProdutos(response.data);  //armazena todos os produtos        
+        // console.log("Dados do banco: ", response.data);
       } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
+        setError(error.message);
+        // console.error("Erro ao buscar produtos:", error);
         Alert.alert("Erro", "Não foi possível buscar os produtos.");
       }
     };
-
     fetchData();
   }, []);
 
-  
-  // NO SEARCHBAR:
-  // função de callback para atualizar o estado produto com os resultados encontrados
-  // a requisicao GET ao servidor via Axios, serve para obter os dados e exibi-los na home
-  // axios faz a ponte entre faz a ponte entre o app e o servidor node.js configurado no server.js
-  const resultadoPesquisa = async (titulo) => {
-    try {
-      const response = await axios.get(`http://localhost:3000/tbProduto/titulo=${titulo}`);
-      setProduto(response.data);
-      console.log("resultados de busca: ", response.data);
-    } catch (error) {
-      console.error("Erro ao buscar o produto:", error);
-      Alert.alert("Erro", "Não foi possível encontrar o produto.");
+
+
+
+  // LOGICA PARA BUSCAR PRODUTOS POR TITULO NO SEARCHBAR 
+  // Fluxo 
+  // usuário digita um nome no SearchBar.
+  // SearchBar chama a função onChange (passada pelo Home.tsx)., apenas dispara a ação
+  // Home.tsx faz a requisição à API com axios e recebe os resultados.
+  // Home.tsx atualiza o estado produtos com os resultados.
+  // FlatList no Home.tsx exibe os produtos encontrados, renderiza 'resultadoPesquisa' se tiver ou produtos se estiver vazia
+  const buscarProdutos = async (titulo: string) => {
+    if (!titulo.trim()) {
+      setResultadoPesquisa([]);    // Se o campo estiver vazio, limpa os produtos
+      return;
     }
-  };
-  
+    try {
+      const response = await axios.get(`http://localhost:3000/tbProduto/titulo/${titulo}`);
+      setResultadoPesquisa(response.data);  // Atualiza o estado com os resultados
+      if (response.data.length === 0) {
+        Alert.alert('Nenhum produto encontrado.');
+        // console.log('Resultado de busca:', response.data);
+      } else {
+        Alert.alert('Produtos encontrados!');
+      }
+    } catch (error) {
+      setResultadoPesquisa([]); // Limpa os resultados se houver erro
+      // console.error('Erro ao buscar produto:', error);
+      Alert.alert('Produto não encontrado. Tente outro.');
+    }
+  };      
    
-  //  ação/ botao do card
-  const comprar = async (item) => { 
-    try {
-      await axios.post("http://localhost:3000/tbProduto", item);
-      Alert.alert("Sucesso", "Produto inserido na sacola com sucesso!");
-    } catch (error) {
-      console.error("Erro ao adicionar o produto:", error);
-      Alert.alert("Erro", "Não foi possível inserir o produto");
-    }
+
+  const aposProdutoEncontrado = () => {
+    // Limpa o campo de pesquisa após os produtos serem exibidos
+    setProdutos('');
+};
+
+
+
+  // FUNÇÃO PARA ADICIONAR ITENS AO CARRINHO (BOTAO COMPRAR)
+  const comprar = (item: any) => {
+    console.log(`Comprando item: ${item.titulo}`);
+    // Lógica para comprar/adicionar  o item a sacola
   };
 
+  // // //  logica para comprar o item
+  // const comprar = async (item) => {
+  //   try {
+  //     await axios.post("http://localhost:3000/tbProduto", item);
+  //     console.log(`Comprando item: ${item.titulo}`);
+  //     Alert.alert("Sucesso", "Produto inserido na sacola com sucesso!");
+  //   } catch (error) {
+  //     console.error("Erro ao adicionar o produto:", error);
+  //     Alert.alert("Erro", "Não foi possível inserir o produto");
+  //   }
+  // };
 
 
 
@@ -76,65 +106,79 @@ const Home = ({ navigation }) => {
 
       {/* contentContainerStyle. ao estilizar  paddingBotton de 80 por ex para garantir que  o conteudo nao fique por baixo do rodape fixo*/}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
+
         <Header
           HomePress={() => navigation.navigate("Home")}
           SacolaPress={() => navigation.navigate("Sacola")}
           LoginPress={() => navigation.navigate("Login")}
         />
 
-        <View style={styles.container}>
-          <SearchBar
-            placeholder="Procure por um produto..."
-            onChange={resultadoPesquisa} 
+
+        <SearchBar
+          placeholder="Procure por um produto..."
+          onChange={buscarProdutos}  // Passando a função de busca para o SearchBar     
+          onSubmit={aposProdutoEncontrado} // limpa o campo ao submeter a pesquisa
+
           />
-        </View>
 
         <Carrosel />
 
-        <View style={styles.buttonsHome}>
-          <ButtonsHome
-            text="Lançamento"
-            iconName="rocket"
-            onPress={() => navigation.navigate("Lancamento")}
-          />
-          <ButtonsHome
-            text="Cupom"
-            iconName="tag"
-            onPress={() => navigation.navigate("Cupom")}
-          />
-          <ButtonsHome
-            text="Outlet"
-            iconName="percent"
-            onPress={() => navigation.navigate("Outlet")}
-          />
-        </View>
 
-        {/**flatList retorno de cards para funções: resultado pesquisa */}
+        <View style={styles.container}>
 
-    
-                   
-        <FlatList
-          data={produto}
-          keyExtractor={(item) => item.idProduto.toString()}
-          pagingEnabled
-          renderItem={({ item }) => (
-            <View style={styles.cardsBanco}>
-              <Card
-                image={{ uri: item.image }}
-                titulo={item.titulo}
-                descricao={item.descricao}
-                precoAnterior={`R$ ${item.precoAnterior}`}
-                precoAtual={`R$ ${item.precoAtual}`}
-                comprar={() => comprar(item)}
-              />
-            </View>
-          )}
-        />
+
+          <View style={styles.buttonsHome}>
+            <ButtonsHome
+              text="Lançamento"
+              iconName="rocket"
+              onPress={() => navigation.navigate("Lancamento")}
+            />
+            <ButtonsHome
+              text="Cupom"
+              iconName="tag"
+              onPress={() => navigation.navigate("Cupom")}
+            />
+            <ButtonsHome
+              text="Outlet"
+              iconName="percent"
+              onPress={() => navigation.navigate("Outlet")}
+            />
+          </View>
 
 
 
-          
-          {/* <Card
+          <View style={styles.cardsBanco}>  
+             {/* Exibe a mensagem "Nenhum produto encontrado" se a pesquisa estiver vazia e não houver resultados */}
+             {/* {resultadoPesquisa.length === 0 && (
+               <Text style={styles.semResultado}>Nenhum produto encontrado</Text>             
+            )}      
+          */}
+         
+            <FlatList
+              data={resultadoPesquisa.length > 0 ? resultadoPesquisa : produtos} // Exibe resultados da pesquisa, se houver, senão exibe todos
+              keyExtractor={(item) => item.idProduto.toString()}
+              pagingEnabled
+              renderItem={({ item }) => (
+
+                <Card
+                  idProduto={item.idProduto}
+                  image={item.image}   // passa o nome da imagem do Card (ex: 'CatCabelo.png')
+                  titulo={item.titulo}
+                  descricao={item.descricao}
+                  precoAnterior={item.precoAnterior}
+                  precoAtual={item.precoAtual}
+                  comprar= {() => comprar(item)}
+                />
+              )}
+              initialNumToRender={10} // Começa com 10 itens visíveis
+              maxToRenderPerBatch={10} // Carrega no máximo 10 itens por vez
+              windowSize={21} // Tamanho da janela de renderização             
+            />
+          </View>
+
+
+
+          {/* <Card  CATEGORIA 06
             image={require("../assets/images/CatCorpoEBanho.png")}
             titulo="Sabonete liquido"
             descricao="Essencial para o seu dia-a-dia"
@@ -143,7 +187,7 @@ const Home = ({ navigation }) => {
             comprar={() => navigation.navigate("Sacola")}
           /> */}
           {/* 
-          <Card
+          <Card   CATEGORIA 03
             image={require("../assets/images/CatPerfume.png")}
             titulo="Perfume unissex"
             descricao="Fragrância para todos os estilos"
@@ -152,7 +196,7 @@ const Home = ({ navigation }) => {
             comprar={() => navigation.navigate("Sacola")}
           />
 
-          <Card
+          <Card  CATEGORIA 02 
             image={require("../assets/images/CatMaquiagem.png")}
             titulo="Trio de sombras"
             descricao="Arrase com cores deslumbrantes"
@@ -161,7 +205,7 @@ const Home = ({ navigation }) => {
             comprar={() => navigation.navigate("Sacola")}
           /> */}
           {/* 
-          <Card
+          <Card   CATEGORIA 4
             image={require("../assets/images/CatSkinCare.png")}
             titulo="Rolinho de massagem"
             descricao="SkinCare a qualquer hora do dia"
@@ -170,7 +214,7 @@ const Home = ({ navigation }) => {
             comprar={() => navigation.navigate("Sacola")}
           />
 
-          <Card
+          <Card CATEGORIA 01
             image={require("../assets/images/CatCabelo.png")}
             titulo="Escova desfrizante"
             descricao="Resistente, tem ions e tem outros"
@@ -179,28 +223,29 @@ const Home = ({ navigation }) => {
             comprar={() => navigation.navigate("Sacola")}
           /> */}
 
-          {/* <Card
+          {/* <Card CATEGORIA 05
             image={require("../assets/images/CatUnha.png")}
             titulo=" Esmalte "
             descricao="Te seduz: é durável. Vai e arrasa !"
-            precoAnterior="R$ 110,00"
+            precoAnterior="R$ 10,00"
             precoAtual="R$ 7,50"
             comprar={() => navigation.navigate("Sacola")}
           />      
-          */}  
+          */}
 
 
-        
-
-        <View style={styles.imageHome}>
-          {/* <Image source={require('C:/APP/PANTERA_ROSA/app_panteraRosa/assets/images/home01.png')} style={styles.image}/> */}
-          <Image source={require("../assets/images/home01.png")}  style={styles.image} />
-          {/* <Image source={require('C:/APP/PANTERA_ROSA/app_panteraRosa/assets/images/home02.png')} style={styles.image} /> */}
-          <Image  source={require("../assets/images/home02.png")}     style={styles.image}  />
+          <View style={styles.imageHome}>
+            {/* <Image source={require('C:/APP/PANTERA_ROSA/app_panteraRosa/assets/images/home01.png')} style={styles.image}/> */}
+            <Image source={require("../assets/images/home01.png")} style={styles.image} />
+            {/* <Image source={require('C:/APP/PANTERA_ROSA/app_panteraRosa/assets/images/home02.png')} style={styles.image} /> */}
+            <Image source={require("../assets/images/home02.png")} style={styles.image} />
+          </View>
         </View>
+
 
         {/*fechar scrollView aqui pois o rodape sera fixo */}
       </ScrollView>
+
 
       <Footer
         HomePress={() => navigation.navigate("Home")}
@@ -211,26 +256,44 @@ const Home = ({ navigation }) => {
   );
 };
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "#fff",
   },
   scrollContainer: {
     paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape
   },
+  buttonsHome: {
+    flexDirection: "row",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+    marginTop: 10, // Ajusta a margem superior
+    marginBottom: 10, // Ajusta a margem inferior
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+   
   },
   item: {
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+  },
+  semResultado: {
+    fontSize: 16,
+    color: '#888',
+    marginTop: 10,
+    textAlign: 'center',
   },
   cardsBanco: {
     flexDirection: "column",
@@ -239,7 +302,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   imageHome: {
-    flex: 1,
+    // flex: 1,
     padding: 20,
     borderRadius: 10,
     display: "flex",
@@ -247,21 +310,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     gap: 10,
-  },
-  buttonsHome: {
-    flexDirection: "row",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "7px",
+    margin:10,
   },
   image: {
+    // flex: 1,
     flexDirection: "row",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: "2px",
+    gap: "2",
+    margin: 10,
+   
   },
+  
 });
 
 export default Home;

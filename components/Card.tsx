@@ -1,17 +1,30 @@
 import { Text, View, Image, SafeAreaView, TouchableOpacity, StyleSheet, Alert } from "react-native";
-// import styles from '@/assets/style/styles';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
-// import { NavigationProp } from "@react-navigation/native";
-
 import StarRating from './StarRating';
 
 
+// as imagens sao Mapeadas  para arquivos dentro do projeto, atraves do caminho real : assets/images. 
+//esses mesmos nomes estao salvos no banco de dados
+// const imageMap = { [key: string]: any } = {   // chave do tipo string e o valor do tipo any (a imagem)    
 
-//criando uma interface - recebe as entidades da tabela tbProduto- banco: db_panteraRosa
+const imageMap: Record<string, any> = {
+    'CatCabelo.png': require('../assets/images/CatCabelo.png'),
+    'CatMaquiagem.png': require('../assets/images/CatMaquiagem.png'),
+    'CatPerfume.png': require('../assets/images/CatPerfume.png'),
+    'CatSkinCare.png': require('../assets/images/CatSkinCare.png'),
+    'CatUnha.png': require('../assets/images/CatUnha.png'),
+    'CatCorpoEBanho.png': require('../assets/images/CatCorpoEBanho.png'),    
+};
+
+
+
+
+
+//criando uma interface - recebe dados lançados na pagina home, serve mais para uma apresentação para cliente, sem ter dados conectados ao banco
+// no entanto trabalhando com tipagem deve ser explicita os tipos que recebem
 interface CardProps {
-    // navigation: NavigationProp<any>;   // vazio
-    idProduto: string,  //mudar para inteiro
-    image: any;  // any permite require   ou tipo string?
+    idProduto: number,  //mudar para inteiro
+    image: string;     // nome da imagem vinda do banco de dados
     titulo: string;
     descricao: string;
     precoAnterior: string;
@@ -20,33 +33,54 @@ interface CardProps {
 }
 
 
-// MODELO CARD
-
 const Card: React.FC<CardProps> = ({ image, titulo, descricao, precoAnterior, precoAtual, comprar }) => {
+    // const Card = ({ image, titulo, descricao, precoAnterior, precoAtual, comprar }) => {
+
+    //verifica se existe mapeamento de imagem
+    const imagePath = imageMap[image];
+
+
+
     const handleSearchChange = (rating: number) => {
-        //  alert('Nova votação :' , rating);
-    };   
+        // Alert. alert('Nova votação :' , rating);
+    };
+
+
 
     return (
-        <>
+         <>
             <View style={styles.card}>
 
-                <Image source={image} style={styles.image} />
+              {/* Verifica se a imagem existe no mapeamento */}
+            {imagePath ? (
+                <Image source={imagePath} style={styles.image} />
+            ) : (
+                <Text>Imagem não disponível</Text> // Caso a imagem não exista no mapeamento
+            )}
+
+
+                {/* <Image style={styles.image}
+                    source={require('../assets/${image}')} />  {/* caminho relativo pois ira carregar a imagem da pasta local */}
+                {/* <Image source={{ uri: image }} style={styles.image} />  se as fotos estivessem fora do  projeto ( tipo servidor ou URL ) banco de dados retornaria URLs dinamicas */} 
+
                 <Text style={styles.descricao}>{titulo}:</Text>
                 <Text style={styles.descricao}>{descricao}:</Text>
 
                 <StarRating maximoEstrelas={5} initialRating={3} onRatingChange={handleSearchChange} />
                 {/* <Icon name='star' size={24} />  */}
 
+
                 <Text style={styles.precoAnterior}>{precoAnterior}</Text>
                 <Text style={styles.precoAtual}>{precoAtual}</Text>
 
-                <TouchableOpacity style={styles.botao} onPress={comprar}>
+                <TouchableOpacity style={styles.botao} onPress={comprar}
+                    accessible={true} accessibilityLabel="Adicionar ao carrinho">
                     <Text style={styles.botaoTexto}> Adicionar</Text>
                 </TouchableOpacity>
+                {/* compra direta sem validação de estoque/ sem tbEstoque */}
 
             </View>
-        </>
+         </>
     );
 };
 
@@ -66,12 +100,12 @@ const styles = StyleSheet.create({
         width: '100%',  // Ajusta a largura da imagem para 100% do contêiner
         height: 160,
         borderRadius: 10,
-        marginBottom: 10,  
+        marginBottom: 10,
     },
     descricao: {
         fontSize: 16,
         marginVertical: 10,
-        textAlign:'center',
+        textAlign: 'center',
     },
     precoAnterior: {
         textDecorationLine: 'line-through',

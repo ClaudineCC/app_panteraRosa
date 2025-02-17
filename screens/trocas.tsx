@@ -30,6 +30,9 @@ const Trocas = ({ navigation }) => {
                 <View style={styles.content}>
                     <Text style={styles.text}>PÁGINA DE TROCAS, DEVOLUÇÕES E CANCELAMENTO</Text>
                 </View>      
+
+                
+                
       
             {/*fechar scrollView aqui pois o rodape sera fixo */}
         </ScrollView>
@@ -65,6 +68,7 @@ content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 50,
 },
 text: {
     fontSize: 24,    
@@ -72,3 +76,4 @@ text: {
 });
 
 export default Trocas;
+

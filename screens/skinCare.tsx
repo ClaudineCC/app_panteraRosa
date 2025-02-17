@@ -63,7 +63,7 @@ const SkinCare: React.FC = ({ navigation }) => {
 
 
                 <View style={styles.bannerfinal}>
-                    <Image source={require('../assets/images/img01.png')} style={styles.image} />
+                    <Image source={require('../assets/images/img04.png')} style={styles.image} />
                 </View>
 
 

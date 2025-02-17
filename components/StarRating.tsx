@@ -4,7 +4,7 @@ import { Text, View, Image, StatusBar, ScrollView, SafeAreaView, TouchableOpacit
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { NavigationProp } from "@react-navigation/native";
+
 
 
 interface StarRatingProps {
@@ -21,8 +21,11 @@ const StarRating: React.FC<StarRatingProps> = ({ maximoEstrelas = 5, initialRati
         setRating(star);
         if (onRatingChange) {
             onRatingChange(star);
+            console.log('Nova avaliação:', star);
         }
     };
+
+    
 
     return (
         <View style={styles.rating}>

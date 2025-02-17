@@ -1,5 +1,5 @@
-import {useState, useEffect, } from 'react';
-import { FlatList, Text, TouchableOpacity, View, SafeAreaView, ScrollView, StatusBar, Image, StyleSheet, Alert,} from "react-native";
+import { useState, useEffect, } from 'react';
+import { FlatList, Text, TouchableOpacity, View, SafeAreaView, ScrollView, StatusBar, Image, StyleSheet, Alert, } from "react-native";
 import axios from 'axios';
 
 import Header from "../components/Header";
@@ -10,25 +10,27 @@ import Card from '@/components/Card';
 
 
 const Lancamento: React.FC = ({ navigation }) => {
-    const [produto, setProduto] = useState([]);
+    const [produtos, setProdutos] = useState([]);
+    const [error, setError] =useState('');
 
 
-    //INSERIR CARDS(dados salvos na tbProduto) NO HOME
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get('http://localhost:3000/tbProduto');
-          setProduto(response.data);
-          console.log("Dados do banco: ", response.data);
-        } catch (error) {
-          console.error("Erro ao buscar produtos:", error);
-          Alert.alert("Erro", "Não foi possível buscar os produtos.");
-        }
-      };
-  
-      fetchData();
-    }, []);
-  
+    
+  // CARREGAR TODOS OS PRODUTOS INICIALMENTE DO BANCO DE DADOS 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/tbProduto');
+        setProdutos(response.data);  //armazena todos os produtos        
+        // console.log("Dados do banco: ", response.data);
+      } catch (error) {
+        setError(error.message);
+        // console.error("Erro ao buscar produtos:", error);
+        Alert.alert("Erro", "Não foi possível buscar os produtos.");
+      }
+    };
+    fetchData();
+  }, []);
+
 
 
 
@@ -51,23 +53,25 @@ const Lancamento: React.FC = ({ navigation }) => {
                 <Text style={styles.texto}>LANÇAMENTOS : Se sinta bem </Text>
 
                 <View style={styles.cardBanco}>
-                <FlatList
-          data={produto}
-          keyExtractor={(item) => item.idProduto.toString()}
-          pagingEnabled
-          renderItem={({ item }) => (
-            <View style={styles.cardsBanco}>
-              <Card
-                image={{ uri: item.image }}
-                titulo={item.titulo}
-                descricao={item.descricao}
-                precoAnterior={`R$ ${item.precoAnterior}`}
-                precoAtual={`R$ ${item.precoAtual}`}
-                comprar={() => ComprarProduto()}
-              />
-            </View>
-          )}
-        />
+                    <FlatList
+                        data={produtos}
+                        keyExtractor={(item) => item.idProduto.toString()}
+                        pagingEnabled
+                        renderItem={({ item }) => (
+                            <View style={styles.cardsBanco}>
+                                <Card
+                                    image={item.image }
+                                    titulo={item.titulo}
+                                    descricao={item.descricao}
+                                    precoAnterior={`R$ ${item.precoAnterior}`}
+                                    precoAtual={`R$ ${item.precoAtual}`}
+                                    comprar={() => comprar()}
+                                />
+                            </View>
+                        )}
+                    />
+
+                    {/*rever flatlist com flat do home */}
 
 
 
@@ -130,6 +134,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 20,
         color: '#333',
+        marginLeft: 65,
+        marginVertical: 10,
     },
     cardBanco: {
         display: 'flex',

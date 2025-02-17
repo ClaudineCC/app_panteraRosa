@@ -30,15 +30,21 @@ const CardsAjuda: React.FC<CardsAjudaProps> = ({ iconName, descricao, cardsDiver
 const styles = StyleSheet.create({
     figura: {
         flexDirection: 'row',
-        alignItems: 'center',
-        padding: 20,
+        alignItems: 'flex-start',
+        padding: 10,
         backgroundColor: 'pink',
-        borderRadius: 25,
-        boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
+        borderRadius: 15,
+        // boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.1,
+        // shadowRadius: 8,
         elevation: 5,
+        height: 100,
+        width: 210,
+
+        // max-height: 50,
+        // max-width:50,
+
         // marginVertical: 10,
     },
     icone: {
