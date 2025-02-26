@@ -1,8 +1,7 @@
 import React from "react";
-import { Text, TouchableOpacity, View, SafeAreaView, ScrollView, StatusBar, Image, StyleSheet, } from "react-native";
+import { Text, View, SafeAreaView, ScrollView, StatusBar, Image, StyleSheet, } from "react-native";
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'; 3
+
 
 import Header from "../components/Header";
 import Card from '@/components/Card';
@@ -13,7 +12,23 @@ import Footer from "../components/Footer";
 
 
 
-const Outlet: React.FC = ({ navigation }) => {
+import { StackNavigationProp } from '@react-navigation/stack';
+
+type RootStackParamList = {
+    Home: undefined;
+    Sacola: undefined;
+    Login: undefined;
+    Categoria: undefined;
+    Ajuda: undefined;
+};
+
+type OutletScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+type Props = {
+    navigation: OutletScreenNavigationProp;
+};
+
+const Outlet: React.FC<Props> = ({ navigation }) => {
     return (
 
         <SafeAreaView style={styles.container}>
@@ -38,16 +53,14 @@ const Outlet: React.FC = ({ navigation }) => {
                         descricao="descrição do produto"
                         precoAnterior='R$ 150,00'
                         precoAtual='R4 75,00'
-                        comprar={() => alert('Produto Adicionado !')}
-                    />
+                        comprar={() => alert('Produto Adicionado !')} idProduto={0} titulo={""}                    />
 
                     <Card
                         image='./assets/images/produto02Outlet.png'
                         descricao="descrição do produto"
                         precoAnterior='R$ 150,00'
                         precoAtual='R4 75,00'
-                        comprar={() => alert('Produto Adicionado !')}
-                    />
+                        comprar={() => alert('Produto Adicionado !')} idProduto={0} titulo={""}                    />
                 </View>
 
 

@@ -10,7 +10,13 @@ import Footer from "@/components/Footer";
 
 
 
-const Pedidos = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+interface PedidosProps {
+    navigation: NavigationProp<any>;
+}
+
+const Pedidos = ({ navigation }: PedidosProps) => {
     return (
 
         <SafeAreaView style={styles.safeArea}>

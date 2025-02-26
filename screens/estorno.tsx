@@ -10,7 +10,13 @@ import Footer from "@/components/Footer";
 
 
 
-const Estorno = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+interface EstornoProps {
+    navigation: NavigationProp<any>;
+}
+
+const Estorno = ({ navigation }: EstornoProps) => {
     return (
 
        

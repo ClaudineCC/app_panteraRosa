@@ -9,12 +9,25 @@ import Card from '@/components/Card';
 import Footer from '@/components/Footer';
 
 
-const Unha: React.FC = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+interface UnhaProps {
+    navigation: NavigationProp<any>;
+}
+
+const Unha: React.FC<UnhaProps> = ({ navigation }) => {
 
     // no searchBar
-    const [produto, setProduto] = useState([]);
-    const handleSearchChange = (data) => {
-        setProduto(data);
+    interface Produto {
+        id: number;
+        titulo: string;
+    }
+
+    const [produto, setProduto] = useState<Produto[]>([]);
+    const handleSearchChange = (titulo: string) => {
+        // Update this function to handle the search logic and update the state accordingly
+        // For now, it just logs the search term
+        console.log(titulo);
     };
 
 
@@ -58,8 +71,7 @@ const Unha: React.FC = ({ navigation }) => {
                         descricao="descrição do produto"
                         precoAnterior='R$ 150,00'
                         precoAtual='R4 75,00'
-                        comprar={() => navigation.navigate('Sacola')}
-                    />
+                        comprar={() => navigation.navigate('Sacola')} idProduto={0}                    />
                 </View>
 
 
@@ -103,6 +115,11 @@ const styles = StyleSheet.create({
     bannerfinal: {
         display: 'flex',
         alignItems:'center',
+    },
+    item: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
     },
 });
 

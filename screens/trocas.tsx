@@ -10,7 +10,9 @@ import Footer from "@/components/Footer";
 
 
 
-const Trocas = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+const Trocas = ({ navigation }: { navigation: NavigationProp<any> }) => {
     return (
 
         <SafeAreaView style={styles.safeArea}>

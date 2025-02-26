@@ -9,7 +9,13 @@ import Card from '@/components/Card';
 import Footer from '@/components/Footer';
 
 
-const SacolaCheckout: React.FC = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+interface SacolaCheckoutProps {
+    navigation: NavigationProp<any>;
+}
+
+const SacolaCheckout: React.FC<SacolaCheckoutProps> = ({ navigation }) => {
 
 
 

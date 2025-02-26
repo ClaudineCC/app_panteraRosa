@@ -6,7 +6,13 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 
-const Politica: React.FC = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+interface PoliticaProps {
+    navigation: NavigationProp<any>;
+}
+
+const Politica: React.FC<PoliticaProps> = ({ navigation }) => {
     return (
 
 

@@ -1,7 +1,13 @@
 import React from 'react';
 import { Button, View, Text } from 'react-native';
 
-const ListaCategorias: React.FC = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+interface ListaCategoriasProps {
+    navigation: NavigationProp<any>;
+}
+
+const ListaCategorias: React.FC<ListaCategoriasProps> = ({ navigation }) => {
     const categorias = [
         { id: 1, nome: 'Cabelos' },
         { id: 2, nome: 'Maquiagem' },

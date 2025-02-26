@@ -10,12 +10,26 @@ import Card from '@/components/Card';
 import Footer from '@/components/Footer';
 
 
-const Perfume: React.FC = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+// no searchBar
+interface Produto {
+    idProduto: number;
+    image: string;
+    titulo: string;
+    descricao: string;
+    precoAnterior: number;
+    precoAtual: number;
+}
+interface PerfumeProps {
+    navigation: NavigationProp<any>;
+}
 
-    // no searchBar
-    const [produto, setProduto] = useState([]);
-    const handleSearchChange = (data) => {
-        setProduto(data);
+const Perfume: React.FC<PerfumeProps> = ({ navigation }) => {
+    
+    const [produto, setProduto] = useState<Produto[]>([]);
+    const handleSearchChange = (titulo: string) => {
+        // Implement the search logic here
+        console.log(titulo);
     };
 
     useEffect(() => {
@@ -61,13 +75,12 @@ const Perfume: React.FC = ({ navigation }) => {
                         renderItem={({ item }) => (
                             <View style={styles.cardsBanco}>
                                 <Card
-                                    image={{ uri: item.image }}
+                                    image='./assets/images/CatCorpoEBanho.png'
                                     titulo={item.titulo}
                                     descricao={item.descricao}
                                     precoAnterior={`R$ ${item.precoAnterior}`}
                                     precoAtual={`R$ ${item.precoAtual}`}
-                                    comprar={() => Alert.alert("Compra", `Você comprou: ${item.titulo}`)}
-                                />
+                                    comprar={() => Alert.alert("Compra", `Você comprou: ${item.titulo}`)} idProduto={0}                                />
                             </View>
                         )}
                     />

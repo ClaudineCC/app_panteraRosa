@@ -18,7 +18,11 @@ interface Produto {
     qtdeProduto: number;  // ou float NAO POSSUI ESTA ENTIDADE NA TABELA     
 }
 
-const Sacola: React.FC = ({ navigation }) => {
+interface SacolaProps {
+    navigation: any;
+}
+
+const Sacola: React.FC<SacolaProps> = ({ navigation }) => {
 
     // View Sacola
 

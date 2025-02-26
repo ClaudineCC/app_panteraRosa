@@ -15,7 +15,11 @@ interface fazerLoginProps {
 }
 
 
-const Login: React.FC = ({ navigation }) => {
+interface LoginProps {
+    navigation: any;
+}
+
+const Login: React.FC<LoginProps> = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -23,7 +27,7 @@ const Login: React.FC = ({ navigation }) => {
 
 
     // validar email
-    const validarEmail = (email) => {
+    const validarEmail = (email: string) => {
         const regex = /\S+@\S+\.\S+/;
         return regex.test(email);
     };

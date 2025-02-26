@@ -9,8 +9,23 @@ import Card from '@/components/Card';
 
 
 
-const Lancamento: React.FC = ({ navigation }) => {
-    const [produtos, setProdutos] = useState([]);
+import { NavigationProp } from '@react-navigation/native';
+
+interface LancamentoProps {
+  navigation: NavigationProp<any>;
+}
+
+const Lancamento: React.FC<LancamentoProps> = ({ navigation }) => {
+    interface Produto {
+      idProduto: number;
+      image: string;
+      titulo: string;
+      descricao: string;
+      precoAnterior: number;
+      precoAtual: number;
+    }
+    
+    const [produtos, setProdutos] = useState<Produto[]>([]);
     const [error, setError] =useState('');
 
 
@@ -22,7 +37,7 @@ const Lancamento: React.FC = ({ navigation }) => {
         const response = await axios.get('http://localhost:3000/tbProduto');
         setProdutos(response.data);  //armazena todos os produtos        
         // console.log("Dados do banco: ", response.data);
-      } catch (error) {
+      } catch (error: any) {
         setError(error.message);
         // console.error("Erro ao buscar produtos:", error);
         Alert.alert("Erro", "Não foi possível buscar os produtos.");
@@ -34,6 +49,10 @@ const Lancamento: React.FC = ({ navigation }) => {
 
 
 
+
+    function comprar(): void {
+        throw new Error('Function not implemented.');
+    }
 
     return (
 
@@ -58,15 +77,14 @@ const Lancamento: React.FC = ({ navigation }) => {
                         keyExtractor={(item) => item.idProduto.toString()}
                         pagingEnabled
                         renderItem={({ item }) => (
-                            <View style={styles.cardsBanco}>
+                            <View style={styles.cardBanco}>
                                 <Card
-                                    image={item.image }
+                                    image={item.image}
                                     titulo={item.titulo}
                                     descricao={item.descricao}
                                     precoAnterior={`R$ ${item.precoAnterior}`}
                                     precoAtual={`R$ ${item.precoAtual}`}
-                                    comprar={() => comprar()}
-                                />
+                                    comprar={() => comprar()} idProduto={0}                                />
                             </View>
                         )}
                     />

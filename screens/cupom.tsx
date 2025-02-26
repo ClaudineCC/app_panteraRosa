@@ -16,7 +16,14 @@ import Footer from "../components/Footer";
 //         return (
 
 
-const Cupom: React.FC = ({navigation}) => {
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../types';
+
+type CupomProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'Cupom'>;
+};
+
+const Cupom: React.FC<CupomProps> = ({navigation}) => {
 
     return (
 

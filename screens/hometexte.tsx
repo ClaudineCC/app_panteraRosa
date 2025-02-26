@@ -17,7 +17,13 @@ const { width } = Dimensions.get("window");
 
 
 
-const Hometexte: React.FC = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+interface HometexteProps {
+    navigation: NavigationProp<any>;
+}
+
+const Hometexte: React.FC<HometexteProps> = ({ navigation }) => {
     const [produtos, setProdutos] = useState<any[]>([]);  // Todos os produtos
     const [produtosFiltrados, setProdutosFiltrados] = useState<any[]>([]);  // Produtos filtrados pela pesquisa
     const [searchText, setSearchText] = useState('');  // Texto da pesquisa
@@ -83,8 +89,6 @@ const Hometexte: React.FC = ({ navigation }) => {
                     <SearchBar
                         placeholder="Procure por um produto..."
                         onChange={handleSearchChange}
-                        value={searchText}
-                        onSubmit={handleSearchSubmit}
                     />
 
                     <Carrosel />
@@ -109,6 +113,7 @@ const Hometexte: React.FC = ({ navigation }) => {
                                 iconName="percent"
                                 onPress={() => navigation.navigate("Outlet")}
                             />
+                            </View>
                         </View>
 
 

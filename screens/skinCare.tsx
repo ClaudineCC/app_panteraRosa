@@ -9,12 +9,34 @@ import Card from '@/components/Card';
 import Footer from '@/components/Footer';
 
 
-const SkinCare: React.FC = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+interface Props {
+    navigation: NavigationProp<any>;
+}
+
+interface Produto {
+    id: number;
+    titulo: string;
+}
+
+
+const SkinCare: React.FC<Props> = ({ navigation }) => {
 
     // no searchBar
-    const [produto, setProduto] = useState([]);
-    const handleSearchChange = (data) => {
-        setProduto(data);
+    const [produto, setProduto] = useState<Produto[]>([]);
+
+    const handleSearchChange = (titulo: string) => {
+        // Update the state based on the search title
+        // Assuming you have a function to filter products based on the title
+        const filteredProducts = filterProductsByTitle(titulo);
+        setProduto(filteredProducts);
+    };
+
+    const filterProductsByTitle = (titulo: string) => {
+        // Implement your product filtering logic here
+        // For now, returning an empty array as a placeholder
+        return [];
     };
 
 
@@ -57,8 +79,7 @@ const SkinCare: React.FC = ({ navigation }) => {
                         descricao="descrição do produto"
                         precoAnterior='R$ 150,00'
                         precoAtual='R4 75,00'
-                        comprar={() => navigation.navigate('Sacola')}
-                    />
+                        comprar={() => navigation.navigate('Sacola')} idProduto={0}                    />
                 </View>
 
 
@@ -89,6 +110,11 @@ const SkinCare: React.FC = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    item: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
     },
     scrollContainer: {
         paddingBottom: 80, //espaço para garantir que o conteudo nao fique por baixo do radape            

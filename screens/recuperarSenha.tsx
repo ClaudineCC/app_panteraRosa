@@ -8,7 +8,13 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 // recebe as entidades da tabela tbPessoa - banco: db_panteraRosa
-const RecuperarSenha: React.FC = ({ navigation }) => {
+import { NavigationProp } from '@react-navigation/native';
+
+interface Props {
+    navigation: NavigationProp<any>;
+}
+
+const RecuperarSenha: React.FC<Props> = ({ navigation }) => {
     const [email, setEmail] = useState('');
 
 
