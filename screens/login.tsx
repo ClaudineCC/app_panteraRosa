@@ -1,6 +1,5 @@
 import React, { useState, } from "react";
 import { Text, TouchableOpacity, View, TextInput, StyleSheet, Image, SafeAreaView, ScrollView, StatusBar, Alert, } from "react-native";
-import { TextInputMask } from "react-native-masked-text";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from "axios";
 
@@ -9,10 +8,6 @@ import axios from "axios";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-interface fazerLoginProps {
-    placeholder: string;
-    onChange: (text: string) => void;
-}
 
 
 interface LoginProps {
@@ -48,8 +43,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
             const response = await axios.get(`http://localhost:3000/db_panteraRosa/tbPessoa/email${email}`);  // OU  db_panteraRosa/login/email/${email}
             console.log('Response:', response.data);
             Alert.alert('Sucesso', 'Login realizado com sucesso!');
-            // onChange(response.data);
-            // setdb_panteraRosa (response.data);        // atualiza a lista com resultados encontrados
+                
         } catch (error) {
             console.error('Erro ao fazer login', error);
             Alert.alert('Erro', 'Erro ao fazer login.');
